@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+	"http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+	<!-- ======== Form Bean Definitions ============================================================== -->
+	<form-beans>
+		<form-bean name="FrmResumo" type="br.com.dfdevforge.sisfin.form.FrmResumo"/>
+		<form-bean name="FrmMovimentoNew" type="br.com.dfdevforge.sisfin.form.FrmMovimentoNew"/>
+
+		<!-- Código não refatorado -->
+	
+		<form-bean name="FrmMovimento" type="br.com.dfdevforge.sisfin.form.FrmMovimento"/>
+		<form-bean name="FrmLogin" type="br.com.dfdevforge.sisfin.form.FrmLogin"/>
+		<form-bean name="UsuarioForm" type="br.com.dfdevforge.sisfin.form.UsuarioForm"/>
+		<form-bean name="FrmObjetivo" type="br.com.dfdevforge.sisfin.form.FrmObjetivo"/>
+		<form-bean name="FrmConta" type="br.com.dfdevforge.sisfin.form.FrmConta"/>
+		<form-bean name="FrmMovimento" type="br.com.dfdevforge.sisfin.form.FrmMovimento"/>
+		<form-bean name="FrmFormaPagamento" type="br.com.dfdevforge.sisfin.form.FrmFormaPagamento"/>
+		<form-bean name="FrmEstabelecimento" type="br.com.dfdevforge.sisfin.estabelecimento.form.FrmEstabelecimento"/>
+		<form-bean name="FrmExtrato" type="br.com.dfdevforge.sisfin.form.FrmExtrato"/>
+	</form-beans>
+
+
+	<!-- ======== Global Forward Definitions ========================================================= -->
+	<global-forwards>
+		<forward name="Login" path="/login.do?cmd=actShowMainPage" />
+	</global-forwards>
+
+
+	<!-- ======== Action Mapping Definitions ========================================================= -->
+	<action-mappings>
+		<action 
+			path="/login" 
+			type="br.com.dfdevforge.sisfin.action.ActLogin" 
+			name="FrmLogin" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.login.actShowMainPage" />
+			<forward name="actExecSearch" path="/resumo.do?cmd=actShowMainPage" />
+		</action>
+
+		<action 
+			path="/logoff" 
+			type="br.com.dfdevforge.sisfin.action.ActLogin" 
+			name="FrmLogin" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actExecLogoff" path="site.login.actShowMainPage" />
+		</action>
+
+		<action
+			path="/resumo"
+			type="br.com.dfdevforge.sisfin.action.ActResumo"
+			name="FrmResumo"
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.resumo.actShowMainPage" />
+		</action>
+
+		<action
+			path="/movimentoNew"
+			type="br.com.dfdevforge.sisfin.action.ActMovimentoNew"
+			name="FrmMovimentoNew"
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.movimentoNew.actShowMainPage" />
+		</action>
+
+		<!-- Código não refatorado -->
+		<action
+			path="/painelMovimento"
+			type="br.com.dfdevforge.sisfin.action.ActMovimento"
+			name="FrmMovimento"
+			input="/pages/erro.jsp"
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.painelMovimento.actShowMainPage" />
+		</action>
+
+		<action 
+			path="/objetivo" 
+			type="br.com.dfdevforge.sisfin.action.ActObjetivo" 
+			name="FrmObjetivo" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.objetivo.actShowMainPage" />
+			<forward name="actShowEditForm" path="site.objetivo.actShowEditForm" />
+			<forward name="actShowInclForm" path="site.objetivo.actShowEditForm" />
+			<forward name="actExecUpdate" path="site.objetivo.actShowMainPage" />
+			<forward name="actExecDelete" path="site.objetivo.actShowMainPage" />
+			<forward name="actExecInsert" path="site.objetivo.actShowMainPage" />
+		</action>
+
+		<action 
+			path="/estabelecimento" 
+			type="br.com.dfdevforge.sisfin.action.ActEstabelecimento" 
+			name="FrmEstabelecimento" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.estabelecimento.actShowMainPage" />
+			<forward name="actShowEditForm" path="site.estabelecimento.actShowMainPage" />
+			<forward name="actExecUpdate" path="site.estabelecimento.actShowMainPage" />
+			<forward name="actExecDelete" path="site.estabelecimento.actShowMainPage" />
+			<forward name="actExecInsert" path="site.estabelecimento.actShowMainPage" />
+		</action>
+
+		<action 
+			path="/formaPagamento" 
+			type="br.com.dfdevforge.sisfin.action.ActFormaPagamento" 
+			name="FrmFormaPagamento" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.formaPagamento.actShowMainPage" />
+			<forward name="actShowEditForm" path="site.formaPagamento.actShowMainPage" />
+			<forward name="actExecUpdate" path="site.formaPagamento.actShowMainPage" />
+			<forward name="actExecDelete" path="site.formaPagamento.actShowMainPage" />
+			<forward name="actExecInsert" path="site.formaPagamento.actShowMainPage" />
+		</action>
+
+		<action 
+			path="/conta" 
+			type="br.com.dfdevforge.sisfin.action.ActConta" 
+			name="FrmConta" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.conta.actShowMainPage" />
+			<forward name="actShowEditForm" path="site.conta.actShowMainPage" />
+			<forward name="actExecUpdate" path="site.conta.actShowMainPage" />
+			<forward name="actExecDelete" path="site.conta.actShowMainPage" />
+			<forward name="actExecInsert" path="site.conta.actShowMainPage" />
+		</action>
+
+		<action 
+			path="/movimento" 
+			type="br.com.dfdevforge.sisfin.action.ActMovimento" 
+			name="FrmMovimento" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.conta.actShowMainPage" />
+			<forward name="actShowEditForm" path="site.conta.actShowMainPage" />
+			<forward name="actExecUpdate" path="site.conta.actShowMainPage" />
+			<forward name="actExecDelete" path="site.conta.actShowMainPage" />
+			<forward name="actExecInsert" path="site.conta.actShowMainPage" />
+		</action>
+
+		<action
+			path="/extrato"
+			type="br.com.dfdevforge.sisfin.action.ActExtrato"
+			name="FrmExtrato"
+			input="/pages/erro.jsp"
+			validate="false">
+
+			<forward name="actShowMainPage" path="site.extrato.actShowMainPage" />
+			<forward name="actShowEditForm" path="site.extrato.actShowMainPage" />
+			<forward name="actShowImpoForm" path="site.extrato.actShowImpoForm" />
+			<forward name="actExecSearch" path="site.extrato.actShowMainPage" />
+			<forward name="actExecUpdate" path="site.extrato.actShowMainPage" />
+			<forward name="actExecDelete" path="site.extrato.actShowMainPage" />
+			<forward name="actExecInsert" path="site.extrato.actShowMainPage" />
+		</action>
+
+		<action 
+			path="/branco" 
+			type="br.com.dfdevforge.sisfin.action.BrancoAction" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="/pages/branco.jsp" />
+		</action>
+
+		<action 
+			path="/cabecalho" 
+			type="br.com.dfdevforge.sisfin.action.CabecalhoAction" 
+			input="/pages/erro.jsp" 
+			validate="false">
+
+			<forward name="actShowMainPage" path="/pages/cabecalho.jsp" />
+		</action>
+
+	</action-mappings>
+
+
+	<!-- ======== Message Resources Definitions ====================================================== -->
+	<message-resources parameter="resources.application" />
+
+
+	<!-- ======== Plug Ins Configuration - Tiles Plugin ============================================== -->
+	<plug-in className="org.apache.struts.tiles.TilesPlugin" >
+		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+
+</struts-config>

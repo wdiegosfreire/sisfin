@@ -1,0 +1,91 @@
+select
+	cdes.CON_COD_CONTA, 
+	cdes.CON_TXT_DESCRICAO, 
+	(
+		select sum(mov.MOV_VLR_MOVIMENTO) AUX_VLR_ANTERIOR
+		from mov_movimento mov inner join con_conta cdes_i on mov.CON_COD_CONTA_DESTINO = cdes_i.CON_COD_CONTA
+		where cdes_i.usu_cod_usuario = 2 and mov.CON_COD_CONTA_ORIGEM = mov.CON_COD_CONTA_DESTINO and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013' and cdes_i.CON_NUM_NIVEL like '01%' and cdes_i.CON_COD_CONTA = cdes.CON_COD_CONTA
+	) AUX_VLR_ANTERIOR, 
+	(
+		select sum(mov.MOV_VLR_MOVIMENTO) AUX_VLR_ENTRADA
+		from mov_movimento mov inner join con_conta cdes_i on mov.CON_COD_CONTA_DESTINO = cdes_i.CON_COD_CONTA
+		where cdes_i.usu_cod_usuario = 2 and mov.CON_COD_CONTA_ORIGEM <> mov.CON_COD_CONTA_DESTINO and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013' and cdes_i.CON_NUM_NIVEL like '01%' and cdes_i.CON_COD_CONTA = cdes.CON_COD_CONTA
+	) AUX_VLR_ENTRADA, 
+	(
+		select sum(mov.MOV_VLR_MOVIMENTO) AUX_VLR_ENTRADA
+		from mov_movimento mov inner join con_conta cori_i on mov.CON_COD_CONTA_ORIGEM = cori_i.CON_COD_CONTA
+		where cori_i.usu_cod_usuario = 2 and mov.CON_COD_CONTA_ORIGEM <> mov.CON_COD_CONTA_DESTINO and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013' and cori_i.CON_NUM_NIVEL like '01%' and cori_i.CON_COD_CONTA = cdes.CON_COD_CONTA
+	) AUX_VLR_SAIDA
+from 
+	mov_movimento mov inner join 
+	con_conta cdes on mov.CON_COD_CONTA_DESTINO = cdes.CON_COD_CONTA
+where 
+	cdes.usu_cod_usuario = 2 
+	and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013'
+	and cdes.CON_NUM_NIVEL like '01%' 
+group by 
+	cdes.CON_TXT_DESCRICAO
+;
+
+select
+	cdes.CON_TXT_DESCRICAO, 
+	'ANT' AUX_FLG_TIPO, 
+	sum(mov.MOV_VLR_MOVIMENTO) AUX_VLR_ENTRADA
+from 
+	mov_movimento mov inner join 
+	con_conta cdes on mov.CON_COD_CONTA_DESTINO = cdes.CON_COD_CONTA
+where 
+	cdes.usu_cod_usuario = 2 
+	and mov.CON_COD_CONTA_ORIGEM = mov.CON_COD_CONTA_DESTINO 
+	and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013'
+	and cdes.CON_NUM_NIVEL like '01%' 
+group by 
+	cdes.CON_TXT_DESCRICAO 
+
+union
+
+select
+	cdes.CON_TXT_DESCRICAO, 
+	'ENT' AUX_FLG_TIPO, 
+	sum(mov.MOV_VLR_MOVIMENTO) AUX_VLR_ENTRADA
+from 
+	mov_movimento mov inner join 
+	con_conta cdes on mov.CON_COD_CONTA_DESTINO = cdes.CON_COD_CONTA
+where 
+	cdes.usu_cod_usuario = 2 
+	and mov.CON_COD_CONTA_ORIGEM <> mov.CON_COD_CONTA_DESTINO 
+	and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013'
+	and cdes.CON_NUM_NIVEL like '01%' 
+group by 
+	cdes.CON_TXT_DESCRICAO 
+
+union
+
+select
+	cori.CON_TXT_DESCRICAO, 
+	'SAI' TIPO, 
+	sum(mov.MOV_VLR_MOVIMENTO) AUX_VLR_ENTRADA
+from 
+	mov_movimento mov inner join 
+	con_conta cori on mov.CON_COD_CONTA_ORIGEM = cori.CON_COD_CONTA
+where 
+	cori.usu_cod_usuario = 2 
+	and mov.CON_COD_CONTA_ORIGEM <> mov.CON_COD_CONTA_DESTINO 
+	and date_format(mov.MOV_DAT_PAGAMENTO, '%m/%Y') = '04/2013'
+	and cori.CON_NUM_NIVEL like '01%' 
+group by 
+	cori.CON_TXT_DESCRICAO 
+;
+
+
+select 
+	con.CON_COD_CONTA,
+	con.CON_TXT_DESCRICAO, 
+	(select sum(mov_i.MOV_VLR_MOVIMENTO) AUX_VLR_TOTAL from con_conta con_i inner join mov_movimento mov_i ON con_i.CON_COD_CONTA = mov_i.CON_COD_CONTA_DESTINO where con_i.con_cod_conta = con.con_cod_conta and (mov_i.mov_dat_pagamento is null and date_format(mov_i.mov_dat_vencimento, '%m/%Y') = '09/2014' or date_format(mov_i.mov_dat_pagamento, '%m/%Y') = '09/2014')) as "09/2014", 
+	(select sum(mov_i.MOV_VLR_MOVIMENTO) AUX_VLR_TOTAL from con_conta con_i inner join mov_movimento mov_i ON con_i.CON_COD_CONTA = mov_i.CON_COD_CONTA_DESTINO where con_i.con_cod_conta = con.con_cod_conta and (mov_i.mov_dat_pagamento is null and date_format(mov_i.mov_dat_vencimento, '%m/%Y') = '08/2014' or date_format(mov_i.mov_dat_pagamento, '%m/%Y') = '08/2014')) as "08/2014"
+from 
+	con_conta con
+where 
+	con.USU_COD_USUARIO = 2 
+	and con.con_cod_conta_pai = 87
+;

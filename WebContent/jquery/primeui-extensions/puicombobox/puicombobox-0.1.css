@@ -1,0 +1,10 @@
+/*
+	puicombobox styles
+*/
+.pui-combobox
+{
+    margin: 0;
+    outline: medium none;
+    padding: 3px;
+    font-weight: normal;
+}

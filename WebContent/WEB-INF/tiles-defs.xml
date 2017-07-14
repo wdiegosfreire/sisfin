@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="site.estrutura" path="/pages/estrutura.jsp">
+		<put name="header" value="/pages/cabecalho.jsp" />
+		<put name="menu" value="/pages/menu.jsp" />
+		<put name="table01" value="/pages/lrcNull.jsp" />
+		<put name="table02" value="/pages/lrcNull.jsp" />
+	</definition>
+
+	<definition name="site.resumo.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/modules/resumo/resumo-main.jsp" />
+	</definition>
+
+	<definition name="site.movimentoNew.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/modules/movimento/movimento-main.jsp" />
+	</definition>
+
+	<!-- Código não refatorado -->
+	<definition name="site.painelMovimento.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/pages/pageContainer/painelMovimento.jsp" />
+	</definition>
+
+	<definition name="site.login.actShowMainPage" extends="site.estrutura">
+		<put name="menu" value="/pages/lrcNull.jsp" />
+		<put name="table01" value="/modules/login/login-main.jsp" />
+		<put name="table02" value="/pages/lrcNull.jsp" />
+	</definition>
+
+	<definition name="site.objetivo.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/pages/objetivoFrm.jsp" />
+		<put name="table02" value="/pages/objetivoQry.jsp" />
+	</definition>
+
+	<definition name="site.objetivo.actShowEditForm" extends="site.estrutura">
+		<put name="header" value="/pages/lrcNull.jsp" />
+		<put name="menu" value="/pages/lrcNull.jsp" />
+		<put name="table01" value="/pages/objetivoFrm.jsp" />
+		<put name="table02" value="/pages/lrcNull.jsp" />
+	</definition>
+
+	<definition name="site.extrato.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/pages/extratoFrm.jsp" />
+		<put name="table02" value="/pages/extratoQry.jsp" />
+	</definition>
+
+	<definition name="site.extrato.actShowImpoForm" extends="site.estrutura">
+		<put name="table01" value="/pages/pageContainer/importarItemExtrato.jsp" />
+	</definition>
+
+	<definition name="site.estabelecimento.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/pages/estabelecimento/estabelecimento-main.jsp" />
+	</definition>
+
+	<definition name="site.formaPagamento.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/pages/formaPagamento/formaPagamento-main.jsp" />
+	</definition>
+
+	<definition name="site.conta.actShowMainPage" extends="site.estrutura">
+		<put name="table01" value="/pages/contaFrm.jsp" />
+		<put name="table02" value="/pages/contaQry.jsp" />
+	</definition>
+
+	<definition name="site.usuario.def" extends="site.estrutura">
+		<put name="table01" value="/pages/usuarioFrm.jsp" />
+		<put name="table02" value="/pages/usuarioQry.jsp" />
+	</definition>
+
+	<definition name="site.movimento.def" extends="site.estrutura">
+		<put name="table01" value="/pages/movimentoFrm.jsp" />
+		<put name="table02" value="/pages/movimentoQry.jsp" />
+	</definition>
+
+</tiles-definitions>

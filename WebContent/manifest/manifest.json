@@ -1,0 +1,7 @@
+{
+	"name": "Sistema de Controle Financeiro",
+	"short_name": "$isfin02",
+	"start_url": "/lrcIndex.jsp",
+	"display": "standalone",
+	"orientation": "landscape"
+}

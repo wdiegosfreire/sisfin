@@ -1,0 +1,58 @@
+@CHARSET "ISO-8859-1";
+
+.divShadow
+{
+	display: none;
+	background-color: yellow;
+	filter: alpha(opacity=10);
+}
+
+.divMain
+{
+	display: none;
+	background-color: #F2F2F2;
+	padding: 0;
+	border: 1px solid #696969;
+	text-align: center;
+	box-shadow: 7px 6px 5px #888888;
+	position: absolute;
+}
+
+.divTitle
+{
+	height: 22px;
+	background-color: #CDE9F7;
+	width: 100%;
+}
+
+.divTitle h3
+{
+	height: 18px;
+	margin: 0;
+	padding: 3px 0 0 5px;
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.divTitle span
+{
+	background: url("icon-016x016-close.png") no-repeat scroll 0 0 transparent;
+	height: 12px;
+	width: 10px;
+	cursor: pointer;
+	float: right;
+	margin: 0;
+	padding: 2px 6px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.divBody
+{
+	padding: 25px 0px 10px 0px;
+	border-bottom: 15px solid #DEEFB1;
+}
+
+#spinnerOs {margin: 0; padding: 0; heigth:0}

@@ -1,0 +1,86 @@
+/* +---------------------------------------------------------------------------------+
+ * Definição das media queries
+ */
+@media screen and (max-width : 800px)
+{
+	body {padding-top: 50px !important;}
+	#content {width: 100% !important;}
+
+	input[type=text], [type=password], [type=email], [type=number] {width: 100% !important;}
+	input[type=file] {width: 100% !important; text-align: left;}
+	input[type=reset] {width: 98% !important; height: 50px; margin-bottom: 7px;}
+	input[type=button] {width: 98% !important; height: 50px; margin-bottom: 7px;}
+	input[type=submit] {width: 98% !important; height: 50px;}
+
+	.puicombobox, .puicomboboxfilter {width: 100% !important;}
+
+	.fieldNumber {min-width: 100% !important;}
+
+	.hiddenOnDemand {display: none;}
+}
+
+@media screen and (min-width : 801px) and (max-width : 1400px)
+{
+	#content {width: 90% !important;}
+}
+
+/* +---------------------------------------------------------------------------------+
+ * Definição dos valores padrão dos estilos que definem o layout principal da página
+ * e que serão alterados pelas media queries
+ */
+#main {}
+#header {position: fixed; top: 0px; width: 100%; z-index: 1000;}
+#header table {padding: 0px;}
+#content {width: 80%; margin: 0px auto;}
+
+/* +---------------------------------------------------------------------------------+
+ * Definição dos valores padrão dos estilos que definem o layout de seções
+ * personalizadas do sistema
+ */
+.fieldContainer .ui-grid-row {padding-bottom: 8px;}
+.buttonContainer .ui-grid-row {text-align: center; padding: 27px 0px 23px 0px;}
+
+body {margin: 0px; padding-top: 80px;}
+form {margin: 0px 0px 0px 0px;}
+a:link {text-decoration: none;}
+input[type=reset], [type=submit], [type=button] {width: 150px !important;}
+
+/* +---------------------------------------------------------------------------------+
+ * Definição das classes de estilo para os alinhamentos vertical e horizontal de conteúdo
+ */
+.top {vertical-align: top !important;}
+.middle {vertical-align: middle !important;}
+.bottom {vertical-align: bottom !important;;}
+
+.left {text-align: left;}
+.right {text-align: right;}
+.center {text-align: center;}
+.justify {text-align: justify;}
+
+/* +---------------------------------------------------------------------------------+
+ * Definição das classes de estilo para a largura de componentes
+ */
+.width50pc {width: 50%;}
+.width95pc {width: 95%;}
+.width100pc {width: 100%; box-sizing: border-box;}
+.width20px {width: 20px !important;}
+.width40px {width: 40px !important;}
+.width60px {width: 60px !important;}
+.width80px {width: 80px;}
+.width100px {width: 100px !important;}
+.width120px {width: 120px;}
+.width125px {width: 125px !important;}
+.width130px {width: 130px;}
+.width150px {width: 150px !important;}
+.width155px {width: 155px;}
+.width240px {width: 240px !important;}
+.width250px {width: 250px !important;}
+.width400px {width: 400px;}
+
+/* Formatação de cores */
+.c-red {color: red;}
+.c-blue {color: blue;}
+.c-green {color: #00CB00;}
+.c-white {color: white;}
+.c-orange {color: orange !important;}
+.c-yellow {color: yellow;}

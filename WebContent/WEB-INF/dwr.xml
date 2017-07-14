@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE dwr PUBLIC 
+	"-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+	"http://www.getahead.ltd.uk/dwr/dwr20.dtd">
+
+<dwr>
+	<allow>
+		<filter class="br.com.dfdevforge.sisfin.dwr.DwrFilter">
+			<param name="teste" value="xana" />
+		</filter>
+
+		<create creator="new" javascript="DwrResumo">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrResumo" />
+		</create>
+		<create creator="new" javascript="DwrMovimentoNew">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrMovimentoNew" />
+		</create>
+
+		<!-- @Deprecated: deverá ser excluído quando a nova página for desenvolvida -->
+		<create creator="new" javascript="DwrPainelMovimento">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrPainelMovimento" />
+		</create>
+
+		<create creator="new" javascript="DwrMovimento">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrMovimento" />
+		</create>
+
+		<create creator="new" javascript="DwrObjetivo">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrObjetivo" />
+		</create>
+
+		<create creator="new" javascript="DwrTemplate">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrTemplate" />
+		</create>
+
+		<create creator="new" javascript="DwrTemplateRegra">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrTemplateRegra" />
+		</create>
+
+		<create creator="new" javascript="DwrExtrato">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrExtrato" />
+		</create>
+
+		<create creator="new" javascript="DwrItemExtrato">
+			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrItemExtrato" />
+		</create>
+
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.dwr.DwrReturn" />
+
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpBanco" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpConta" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpRegra" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpExtrato" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpUsuario" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpObjetivo" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpTemplate" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpMovimento" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpCompetencia" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpItemExtrato" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpTipoExtrato" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpObjetivoItem" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpTemplateRegra" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.bean.BtpFormaPagamento" />
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento" />
+
+		<convert converter="bean" match="br.com.dfdevforge.sisfin.behavior.TransferObject" />
+	</allow>
+</dwr>

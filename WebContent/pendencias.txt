@@ -1,0 +1,18 @@
+01) Após a inclusão de um objetivo, resetar formulário.
+02) No cadastro de objetivos, remover validação obrigatoriedade do campo "Estabelecimento". (OK)
+03) No resultado da consulta de objetivos incluir resumo:
+    a) total de rendimentos (OK)
+    b) total de despesas (OK)
+    c) saldo do mês (OK)
+04) Desenvolver funcionalidade de edição de movimentos:
+    a) Se parcela == 1 então exibe botão para edição completa e botão pra preenchimento da data de pagamento.
+    b) Se parcela > 1 então exibe apenas botão pra preenchimento da data de pagamento.
+    c) Edição completa: O sistema exibirá o formulário com todas as informações do objetivo, inclusive
+       lista de itens e movimentos (parcelas);
+    d) Preenchimento da data de pagamento: o sistema abre um popup para o preenchimento da data de pagamento
+       para o respectivo movimento
+05) Desenvolver funcionalidade para visualisar lista de todos os movimentos de um determinado objetivo:
+    a) criar link no campo "Parcela" do resultado da consulta onde será exibido um popup com todas
+       as parcelas.
+06) Dispôr o formulário de cadastro de parcelas abaixo do formulário de itens.
+07) Alterar layout do sistema.
