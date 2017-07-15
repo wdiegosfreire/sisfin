@@ -6,6 +6,9 @@
 <html>
 
 <head>
+	<link rel="icon" href="images/favicon-16.ico" sizes="16x16">
+	<link rel="icon" href="images/favicon-32.png" sizes="32x32">
+
 	<title><bean:message key="label.appName.short"/></title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -35,8 +38,6 @@
 	<!--
 		Importando o PrimeUI
 	-->
-<!-- 	<link href="jquery/primeui-4.1.8/primeui.min.css" type="text/css" rel="stylesheet"> -->
-<!-- 	<script src="jquery/primeui-4.1.8/primeui.min.js" type="text/javascript"></script> -->
 	<link href="jquery/primeui-4.1.15/primeui.css" type="text/css" rel="stylesheet">
 	<script src="jquery/primeui-4.1.15/primeui.js" type="text/javascript"></script>
 
