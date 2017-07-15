@@ -6,8 +6,7 @@
 <html>
 
 <head>
-	<link rel="icon" href="images/favicon-16.ico" sizes="16x16">
-	<link rel="icon" href="images/favicon-32.png" sizes="32x32">
+	<link rel="icon" href="images/favicon-32.ico" sizes="32x32">
 
 	<title><bean:message key="label.appName.short"/></title>
 
