@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpUsuario;
 import br.com.dfdevforge.sisfin.behavior.ActionControler;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;

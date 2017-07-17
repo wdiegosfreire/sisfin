@@ -2,8 +2,8 @@ package br.com.dfdevforge.sisfin.estabelecimento.persistence;
 
 import java.sql.SQLException;
 
-import br.com.cagece.core.persistence.ConnectionManager;
-import br.com.cagece.core.persistence.InsertStrategy;
+import br.com.cagece.core.persistence.api.ConnectionManager;
+import br.com.cagece.core.persistence.api.InsertStrategy;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimentoConfig;
 

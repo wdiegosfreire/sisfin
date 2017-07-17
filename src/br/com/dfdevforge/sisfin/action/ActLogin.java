@@ -1,6 +1,5 @@
 package br.com.dfdevforge.sisfin.action;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
@@ -15,7 +14,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpUsuario;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;
 import br.com.dfdevforge.sisfin.business.BusUsuario;
@@ -96,10 +95,6 @@ public class ActLogin extends ActAbstract
 			e.printStackTrace();
 		}
 		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

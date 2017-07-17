@@ -2,7 +2,7 @@ package br.com.dfdevforge.sisfin.bean;
 
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public class BtpBanco extends AbstractBean
 {

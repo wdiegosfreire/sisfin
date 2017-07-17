@@ -6,8 +6,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivo;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivoItem;

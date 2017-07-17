@@ -10,7 +10,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;
 import br.com.dfdevforge.sisfin.constants.Constants;
 

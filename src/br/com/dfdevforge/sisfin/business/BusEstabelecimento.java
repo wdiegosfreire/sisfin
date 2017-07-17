@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.business;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
 import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimento;
 import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoInsert;

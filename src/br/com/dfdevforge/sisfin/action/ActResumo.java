@@ -12,12 +12,11 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;
 import br.com.dfdevforge.sisfin.business.BusConta;
 import br.com.dfdevforge.sisfin.business.BusResumo;
-import br.com.dfdevforge.sisfin.constants.Constants;
 import br.com.dfdevforge.sisfin.constants.EnumComandoNavegacao;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;

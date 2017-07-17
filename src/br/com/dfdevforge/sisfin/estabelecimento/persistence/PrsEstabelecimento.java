@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
@@ -112,15 +112,5 @@ public class PrsEstabelecimento extends PrsAbstract
 		this.dbConn.statementExecuteUpdate(sql.toString());
 
 		return btpEstabelecimento;
-	}
-
-	public Integer updateByTable(BtpEstabelecimento btpEstabelecimento) throws Exception
-	{
-		return 0;
-	}
-
-	public Integer updateByField(BtpEstabelecimento btpEstabelecimento) throws Exception
-	{
-		return 0;
 	}
 }

@@ -1,6 +1,6 @@
 package br.com.dfdevforge.sisfin.bean;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public class BtpTemplateRegra extends AbstractBean
 {
