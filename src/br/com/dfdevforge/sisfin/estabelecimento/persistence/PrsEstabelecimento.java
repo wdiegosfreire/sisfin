@@ -113,14 +113,4 @@ public class PrsEstabelecimento extends PrsAbstract
 
 		return btpEstabelecimento;
 	}
-
-	public Integer updateByTable(BtpEstabelecimento btpEstabelecimento) throws Exception
-	{
-		return 0;
-	}
-
-	public Integer updateByField(BtpEstabelecimento btpEstabelecimento) throws Exception
-	{
-		return 0;
-	}
 }

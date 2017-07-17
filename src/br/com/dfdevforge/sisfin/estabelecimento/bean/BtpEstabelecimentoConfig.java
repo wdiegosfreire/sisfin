@@ -7,10 +7,10 @@ public class BtpEstabelecimentoConfig extends BeanConfig<BtpEstabelecimento>
 	public BtpEstabelecimentoConfig(BtpEstabelecimento btpEstabelecimento)
 	{
 		this.btpParam = btpEstabelecimento;
-		this.setTableName("EST_ESTABELECIMENTO");
+		this.setTableName("est_estabelecimento");
 
-		this.setIdentity("EST_COD_ESTABELECIMENTO", this.btpParam.getEstCodEstabelecimento());
-		this.setAttribute("EST_NOM_ESTABELECIMENTO", this.btpParam.getEstNomEstabelecimento(), Boolean.TRUE);
-		this.setAttribute("USU_COD_USUARIO", this.btpParam.getBtpUsuario().getUsuCodUsuario(), Boolean.TRUE);
+		this.setIdentity("est_cod_estabelecimento", this.btpParam.getEstCodEstabelecimento());
+		this.setAttribute("est_nom_estabelecimento", this.btpParam.getEstNomEstabelecimento(), Boolean.TRUE);
+		this.setAttribute("usu_cod_usuario", this.btpParam.getBtpUsuario().getUsuCodUsuario(), Boolean.TRUE);
 	}
 }
