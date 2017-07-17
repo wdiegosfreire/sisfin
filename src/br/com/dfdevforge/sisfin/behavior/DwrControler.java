@@ -1,6 +1,6 @@
 package br.com.dfdevforge.sisfin.behavior;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.dwr.DwrReturn;
 
 public interface DwrControler<Bean extends TransferObject>

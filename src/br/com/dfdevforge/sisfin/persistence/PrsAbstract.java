@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.TimeZone;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 
 public abstract class PrsAbstract
 {

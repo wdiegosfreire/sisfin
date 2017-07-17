@@ -11,7 +11,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpBanco;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;

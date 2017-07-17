@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.dwr;
 import java.util.List;
 import java.util.Map;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public class DwrReturn
 {

@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.dwr;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpItemExtrato;
 import br.com.dfdevforge.sisfin.business.BusItemExtrato;
 import br.com.dfdevforge.sisfin.business.BusObjetivo;

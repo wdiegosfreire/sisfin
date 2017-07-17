@@ -1,6 +1,6 @@
 package br.com.dfdevforge.sisfin.estabelecimento.bean;
 
-import br.com.cagece.core.persistence.BeanConfig;
+import br.com.cagece.core.persistence.api.BeanConfig;
 
 public class BtpEstabelecimentoConfig extends BeanConfig<BtpEstabelecimento>
 {

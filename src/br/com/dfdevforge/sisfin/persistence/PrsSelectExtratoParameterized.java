@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpBanco;
 import br.com.dfdevforge.sisfin.bean.BtpExtrato;
 import br.com.dfdevforge.sisfin.bean.BtpItemExtrato;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.struts.upload.FormFile;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public class BtpExtrato extends AbstractBean
 {

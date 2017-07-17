@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.persistence;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpTemplateRegra;
 import br.com.dfdevforge.sisfin.behavior.UpdateablePersistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;

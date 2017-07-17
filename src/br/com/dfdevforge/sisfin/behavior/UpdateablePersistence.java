@@ -1,6 +1,6 @@
 package br.com.dfdevforge.sisfin.behavior;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public interface UpdateablePersistence<Btp extends AbstractBean>
 {

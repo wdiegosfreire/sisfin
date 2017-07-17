@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionForm;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
 import br.com.dfdevforge.sisfin.exception.TimezoneValueException;
 

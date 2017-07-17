@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;

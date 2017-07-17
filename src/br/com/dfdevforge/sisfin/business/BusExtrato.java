@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpBanco;
 import br.com.dfdevforge.sisfin.bean.BtpExtrato;
 import br.com.dfdevforge.sisfin.bean.BtpItemExtrato;
