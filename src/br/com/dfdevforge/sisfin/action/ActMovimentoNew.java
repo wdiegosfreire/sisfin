@@ -130,8 +130,8 @@ public class ActMovimentoNew extends ActAbstract
 		List<BtpConta> btpContaList = busConta.consultar(btpConta, conn, 3);
 		setListOnRequest(request, btpContaList, "btpContaListCombo");
 
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		List<BtpEstabelecimento> btpEstabelecimentoList = busEstabelecimento.consultar(btpEstabelecimento, conn, 2);
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		List<BtpEstabelecimento> btpEstabelecimentoList = busEstabelecimento.consultar(btpEstabelecimento, 2);
 		setListOnRequest(request, btpEstabelecimentoList, "btpEstabelecimentoListCombo");
 
 		BusFormaPagamento busFormaPagamento = new BusFormaPagamento();

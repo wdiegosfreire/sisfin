@@ -27,9 +27,8 @@ public class ActEstabelecimento extends ActAbstract
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		ActionMessages actMsg = new ActionMessages();
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		
-		ConnectionManager dbConn = null;
+		BusEstabelecimento busEstabelecimento = null;
+		ConnectionManager connectionManager = null;
 
 		command = ((FrmEstabelecimento) form).getCmd();
 
@@ -37,38 +36,39 @@ public class ActEstabelecimento extends ActAbstract
 
 		try
 		{
-			dbConn = new ConnectionManager();
+			connectionManager = new ConnectionManager();
+			busEstabelecimento = new BusEstabelecimento(connectionManager);
 
 			if (command.equals(Constants.actShowMainPage))
 			{
-				actShowMainPage(request, form, dbConn, busEstabelecimento);
+				actShowMainPage(request, form, busEstabelecimento);
 			}
 			else if (command.equals(Constants.actShowEditForm))
 			{
-				actShowEditForm(request, form, dbConn, busEstabelecimento);
+				actShowEditForm(request, form, busEstabelecimento);
 			}
 			else if (command.equals(Constants.actShowInclForm))
 			{
-				actShowInclForm(request, form, dbConn, busEstabelecimento);
+				actShowInclForm(request, form, busEstabelecimento);
 			}
 			else if (command.equals(Constants.actExecDelete))
 			{
-				actExecDelete(request, form, dbConn, busEstabelecimento);
+				actExecDelete(request, form, busEstabelecimento);
 			}
 			else if (command.equals(Constants.actExecUpdate))
 			{
-				actExecUpdate(request, form, dbConn, busEstabelecimento);
+				actExecUpdate(request, form, busEstabelecimento);
 			}
 			else if (command.equals(Constants.actExecInsert))
 			{
-				actExecInsert(request, form, dbConn, busEstabelecimento);
+				actExecInsert(request, form, busEstabelecimento);
 			}
 
-			dbConn.commit();
+			connectionManager.commit();
 		}
 		catch (SQLException e)
 		{
-			dbConn.rollback();
+			connectionManager.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getClass().getSimpleName(), new ActionMessage(e.getClass().getName()));
 		}
@@ -79,31 +79,31 @@ public class ActEstabelecimento extends ActAbstract
 		}
 		catch (SessionUserNotFoundException e)
 		{
-			dbConn.rollback();
+			connectionManager.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
 		}
 		catch (TimezoneValueException e)
 		{
-			dbConn.rollback();
+			connectionManager.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
 		}
 		catch (RequiredColumnNotFoundException e)
 		{
-			dbConn.rollback();
+			connectionManager.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
 		}
 		catch (NullBeanException e)
 		{
-			dbConn.rollback();
+			connectionManager.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
 		}
 		finally
 		{
-			ConnectionManager.closeConnection(dbConn);
+			ConnectionManager.closeConnection(connectionManager);
 		}
 
 		if (!actMsg.isEmpty())
@@ -115,29 +115,29 @@ public class ActEstabelecimento extends ActAbstract
 		return (mapping.findForward(command));
 	}
 
-	public boolean actExecSearch(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws SQLException
+	public boolean actExecSearch(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException
 	{
 		return false;
 	}
 
-	public boolean actExecInsert(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws SQLException, RequiredColumnNotFoundException, NullBeanException, SessionUserNotFoundException, TimezoneValueException, Exception
+	public boolean actExecInsert(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, RequiredColumnNotFoundException, NullBeanException, SessionUserNotFoundException, TimezoneValueException, Exception
 	{
 		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
 
-		busEstabelecimento.incluir(frmEstabelecimento.getBtpEstabelecimento(), conn);
+		busEstabelecimento.incluir(frmEstabelecimento.getBtpEstabelecimento());
 
 		frmEstabelecimento.reset(null, null);
 
-		actShowMainPage(request, actionForm, conn, busEstabelecimento);
+		actShowMainPage(request, actionForm, busEstabelecimento);
 
 		return true;
 	}
 
-	public boolean actShowEditForm(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
+	public boolean actShowEditForm(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
 		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
 
-		List<BtpEstabelecimento> btpEstList = busEstabelecimento.editar(frmEstabelecimento.getBtpEstabelecimento(), conn);
+		List<BtpEstabelecimento> btpEstList = busEstabelecimento.editar(frmEstabelecimento.getBtpEstabelecimento());
 
 		frmEstabelecimento.setBtpEstabelecimento(btpEstList.get(0));
 		setListOnRequest(request, btpEstList, "btpEstabelecimentoList");
@@ -145,44 +145,44 @@ public class ActEstabelecimento extends ActAbstract
 		return false;
 	}
 
-	public boolean actShowMainPage(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
+	public boolean actShowMainPage(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
 		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
 
-		setListOnRequest(request, busEstabelecimento.consultar(frmEstabelecimento.getBtpEstabelecimento(), conn, frmEstabelecimento.getSqlOrder()), "btpEstabelecimentoList");
+		setListOnRequest(request, busEstabelecimento.consultar(frmEstabelecimento.getBtpEstabelecimento(), frmEstabelecimento.getSqlOrder()), "btpEstabelecimentoList");
 
 		return true;
 	}
 
-	public boolean actExecUpdate(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public boolean actExecUpdate(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
 		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
 
-		busEstabelecimento.alterar(frmEstabelecimento.getBtpEstabelecimento(), conn);
+		busEstabelecimento.alterar(frmEstabelecimento.getBtpEstabelecimento());
 
 		frmEstabelecimento.reset(null, null);
 
-		actShowMainPage(request, actionForm, conn, busEstabelecimento);
+		actShowMainPage(request, actionForm, busEstabelecimento);
 
 		return true;
 	}
 
-	public boolean actExecDelete(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public boolean actExecDelete(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
 		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
-		busEstabelecimento.excluir(frmEstabelecimento.getBtpEstabelecimento(), conn);
+		busEstabelecimento.excluir(frmEstabelecimento.getBtpEstabelecimento());
 
 		frmEstabelecimento.reset(null, null);
 
-		actShowMainPage(request, actionForm, conn, busEstabelecimento);
+		actShowMainPage(request, actionForm, busEstabelecimento);
 
 		return true;
 	}
 
-	public boolean actShowInclForm(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusEstabelecimento busEstabelecimento) throws SQLException, Exception
+	public boolean actShowInclForm(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, Exception
 	{
 		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
-		busEstabelecimento.incluir(frmEstabelecimento.getBtpEstabelecimento(), conn);
+		busEstabelecimento.incluir(frmEstabelecimento.getBtpEstabelecimento());
 
 		return true;
 	}

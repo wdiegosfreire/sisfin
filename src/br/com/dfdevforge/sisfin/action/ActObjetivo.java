@@ -128,8 +128,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de templates
 		BtpTemplate btpTemplate = new BtpTemplate();
@@ -167,8 +167,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();
@@ -201,8 +201,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();

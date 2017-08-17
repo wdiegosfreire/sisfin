@@ -21,7 +21,7 @@
 <html:form action="movimento.do?cmd=add" focus="movimentoBean.orcamentoBean.orcCodOrcamento">
 
 	<!-- Formulário de cadastro de movimentos -->
-	<table border="0" width="100%">
+	<table style="width: 100%;">
 		<tr>
 			<td colspan="2"><bean:message key="label.application.movimento.up" /> - <bean:message key="label.application.cadastro.up" /></td>
 		</tr>
@@ -101,7 +101,7 @@
 
 	<!-- Botões de opção do formulário principal -->
 	<hr size="1">
-	<table border="0" width="100%">
+	<table style="width: 100%;">
 		<tr>
 			<td align="left" nowrap>
 				<logic:notEqual name="cmd_" value="mtn">
@@ -124,7 +124,7 @@
 
 	<html:form action="itemMovimento.do?cmd=add">
 	
-		<table border="0" width="100%">
+		<table style="width: 100%;">
 			<tr valign="top">
 				<td width="20%%" class="fontePadraoNegrito"><bean:message key="label.attribute.itmNomItem" /></td>
 				<td class="fontePadraoNegrito"><bean:message key="label.attribute.itmVlrUnitario" /></td>
@@ -153,7 +153,7 @@
 
 	<html:form action="parcela.do?cmd=add">
 	
-		<table border="0" width="100%">
+		<table style="width: 100%;">
 			<tr valign="top">
 				<td class="fontePadraoNegrito">
 					Compra à Vista <input type="checkbox" name="flgParcelaUnica" onclick="setParcelaUnica();">

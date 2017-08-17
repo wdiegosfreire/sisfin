@@ -14,7 +14,7 @@
 			onmouseout="lightOff(this)">
 
 			<tr class="fontePadraoNegrito ui-widget-header">
-				<td style="width: 25px;">&nbsp</td>
+				<td style="width: 25px;">&nbsp;</td>
 				<td style="width: 60px;">Data</td>
 				<td>Descrição</td>
 				<td style="width: 120px; text-align: right;">Número</td>

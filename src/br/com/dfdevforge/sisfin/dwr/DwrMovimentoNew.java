@@ -97,32 +97,32 @@ public class DwrMovimentoNew extends DwrAbstract
 	public DwrReturn loadEstabelecimentoCombo(BtpEstabelecimento btpEstabelecimento) throws SQLException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
-		ConnectionManager conn = null;
+		ConnectionManager connectionManager = null;
 
 		try
 		{
-			conn = new ConnectionManager();
+			connectionManager = new ConnectionManager();
 
 			if (btpEstabelecimento == null)
 				btpEstabelecimento = new BtpEstabelecimento();
 
 			btpEstabelecimento.setBtpUsuario(DWRUtil.getSessionUser());
 
-			BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-			List<BtpEstabelecimento> btpEstabelecimentoListCombo = busEstabelecimento.consultar(btpEstabelecimento, conn, 2);
+			BusEstabelecimento busEstabelecimento = new BusEstabelecimento(connectionManager);
+			List<BtpEstabelecimento> btpEstabelecimentoListCombo = busEstabelecimento.consultar(btpEstabelecimento, 2);
 
 			dwrReturn.setBtpResultList(btpEstabelecimentoListCombo);
 
-			conn.commit();
+			connectionManager.commit();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			conn.rollback();
+			connectionManager.rollback();
 		}
 		finally
 		{
-			ConnectionManager.closeConnection(conn);
+			ConnectionManager.closeConnection(connectionManager);
 		}
 
 		return dwrReturn;

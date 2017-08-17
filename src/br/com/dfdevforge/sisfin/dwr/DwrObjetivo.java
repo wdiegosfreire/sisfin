@@ -106,29 +106,29 @@ public class DwrObjetivo extends DwrAbstract
 
 	public List<BtpEstabelecimento> getBtpEstabelecimentoList() throws Exception
 	{
-		ConnectionManager dbConn = null;
+		ConnectionManager connectionManager = null;
 		List<BtpEstabelecimento> btpEstabelecimentoList = null;
 		BtpUsuario btpUsuario = DWRUtil.getSessionUser();
 
 		try
 		{
-			dbConn = new ConnectionManager();
+			connectionManager = new ConnectionManager();
 
 			BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 			btpEstabelecimento.setBtpUsuario(btpUsuario);
 
-			BusEstabelecimento b = new BusEstabelecimento();
-			b.consultar(btpEstabelecimento, dbConn, 1);
+			BusEstabelecimento b = new BusEstabelecimento(connectionManager);
+			b.consultar(btpEstabelecimento, 1);
 
-			PrsEstabelecimento prsEstabelecimento = new PrsEstabelecimento(dbConn);
+			PrsEstabelecimento prsEstabelecimento = new PrsEstabelecimento(connectionManager);
 			btpEstabelecimentoList = prsEstabelecimento.select(null, 1);
 
-			dbConn.commit();
+			connectionManager.commit();
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			dbConn.rollback();
+			connectionManager.rollback();
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -136,7 +136,7 @@ public class DwrObjetivo extends DwrAbstract
 		}
 		finally
 		{
-			ConnectionManager.closeConnection(dbConn);
+			ConnectionManager.closeConnection(connectionManager);
 		}
 
 		return btpEstabelecimentoList;

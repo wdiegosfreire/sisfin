@@ -14,46 +14,49 @@ import br.com.dfdevforge.sisfin.exception.TimezoneValueException;
 
 public class BusEstabelecimento
 {
-	BtpEstabelecimento btpEstabelecimento;
+	private ConnectionManager connectionManager;
 
-	public void alterar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public BusEstabelecimento(ConnectionManager connectionManager)
 	{
-		PrsEstabelecimento prs = new PrsEstabelecimento(conn);
+		this.connectionManager = connectionManager;
+	}
+
+	public void alterar(BtpEstabelecimento btpEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	{
+		PrsEstabelecimento prs = new PrsEstabelecimento(connectionManager);
 		prs.update(btpEstabelecimento);
 	}
 
-	public List<BtpEstabelecimento> cadastrar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn)
+	public void cadastrar(BtpEstabelecimento btpEstabelecimento)
 	{
-		return null;
 	}
 
-	public List<BtpEstabelecimento> editar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn) throws SQLException, SessionUserNotFoundException, TimezoneValueException
+	public List<BtpEstabelecimento> editar(BtpEstabelecimento btpEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
-		return this.consultar(btpEstabelecimento, conn, 0);
+		return this.consultar(btpEstabelecimento, 0);
 	}
 
-	public void excluir(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public void excluir(BtpEstabelecimento btpEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
-		PrsEstabelecimento prs = new PrsEstabelecimento(conn);
+		PrsEstabelecimento prs = new PrsEstabelecimento(connectionManager);
 		prs.delete(btpEstabelecimento);
 	}
 
-	public List<BtpEstabelecimento> exibir(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn)
+	public void exibir(BtpEstabelecimento btpEstabelecimento)
 	{
-		return null;
 	}
 
-	public List<BtpEstabelecimento> consultar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn, int sqlOrdem) throws SQLException, SessionUserNotFoundException, TimezoneValueException
+	public List<BtpEstabelecimento> consultar(BtpEstabelecimento btpEstabelecimento, int sqlOrdem) throws SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
-		PrsEstabelecimento prs = new PrsEstabelecimento(conn);
+		PrsEstabelecimento prs = new PrsEstabelecimento(connectionManager);
 		List<BtpEstabelecimento> btpEstabelecimentoList = prs.select(btpEstabelecimento, sqlOrdem);
 
 		return btpEstabelecimentoList;
 	}
 
-	public void incluir(BtpEstabelecimento btpEstabelecimento, ConnectionManager connection) throws SQLException, Exception
+	public void incluir(BtpEstabelecimento btpEstabelecimento) throws SQLException, Exception
 	{
-		PrsEstabelecimentoInsert prsEstabelecimento = new PrsEstabelecimentoInsert(btpEstabelecimento, connection);
+		PrsEstabelecimentoInsert prsEstabelecimento = new PrsEstabelecimentoInsert(btpEstabelecimento, this.connectionManager);
 		prsEstabelecimento.execute();
 
 		if (prsEstabelecimento.getAffectedRows() != 1)

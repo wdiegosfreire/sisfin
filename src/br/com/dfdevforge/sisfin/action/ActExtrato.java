@@ -209,8 +209,8 @@ public class ActExtrato extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmExtrato.getBtpExtrato().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();

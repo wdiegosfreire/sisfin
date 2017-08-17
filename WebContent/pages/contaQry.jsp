@@ -6,7 +6,7 @@
 <!-- Resultado da consulta de Contas -->
 <div class="puiPanel" title="Listagem de Contas Cadastradas">
 
-	<table style="width: 100%;" cellspacing="0" border="0">
+	<table style="width: 100%;">
 		<tr class="fontePadraoNegrito">
 			<td><bean:message key="label.attribute.conTxtDescricao.up" /></td>
 			<td align="center">Movimento</td>
