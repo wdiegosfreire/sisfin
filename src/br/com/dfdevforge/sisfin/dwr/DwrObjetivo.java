@@ -130,10 +130,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			connectionManager.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		finally
 		{
 			ConnectionManager.closeConnection(connectionManager);
@@ -166,10 +162,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbConn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		finally
 		{
 			ConnectionManager.closeConnection(dbConn);
@@ -200,10 +192,6 @@ public class DwrObjetivo extends DwrAbstract
 		{
 			e.printStackTrace();
 			dbConn.rollback();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
 		}
 		finally
 		{
@@ -311,10 +299,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbConn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (RequiredColumnNotFoundException e)
 		{
 			e.printStackTrace();
@@ -409,10 +393,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbConn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (NumberFormatException e)
 		{
 			e.printStackTrace();
@@ -458,10 +438,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbconn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (RequiredColumnNotFoundException e)
 		{
 			e.printStackTrace();
@@ -501,10 +477,6 @@ public class DwrObjetivo extends DwrAbstract
 		{
 			e.printStackTrace();
 			dbConn.rollback();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
 		}
 		finally
 		{

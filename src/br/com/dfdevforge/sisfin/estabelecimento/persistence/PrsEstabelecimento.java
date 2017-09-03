@@ -6,8 +6,6 @@ import java.util.List;
 
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
-import br.com.dfdevforge.sisfin.exception.NullBeanException;
-import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
 import br.com.dfdevforge.sisfin.persistence.PrsAbstract;
 import br.com.dfdevforge.sisfin.util.Utils;
@@ -67,50 +65,5 @@ public class PrsEstabelecimento extends PrsAbstract
 		}
 
 		return btpEstabelecimentoList;
-	}
-
-	public BtpEstabelecimento update(BtpEstabelecimento btpEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException
-	{
-		if (btpEstabelecimento == null || !Utils.hasValue(btpEstabelecimento.getBtpUsuario().getUsuCodUsuario()))
-			throw new SessionUserNotFoundException();
-
-		if (!Utils.hasValue(btpEstabelecimento.getEstCodEstabelecimento()))
-			throw new RequiredColumnNotFoundException();
-		if (!Utils.hasValue(btpEstabelecimento.getEstNomEstabelecimento()))
-			throw new RequiredColumnNotFoundException();
-
-		StringBuilder values = new StringBuilder();
-
-		values.append("est_nom_estabelecimento = '" + btpEstabelecimento.getEstNomEstabelecimento() + "'");
-
-		StringBuilder sql = new StringBuilder();
-		sql.append("update est_estabelecimento set " + values + " ");
-		sql.append("where ");
-		sql.append("  est_cod_estabelecimento = " + btpEstabelecimento.getEstCodEstabelecimento());
-		sql.append("  and usu_cod_usuario = " + btpEstabelecimento.getBtpUsuario().getUsuCodUsuario() + " ");
-
-		this.dbConn.statementExecuteUpdate(sql.toString());
-
-		return btpEstabelecimento;
-	}
-
-	public BtpEstabelecimento delete(BtpEstabelecimento btpEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException
-	{
-		if (btpEstabelecimento == null || !Utils.hasValue(btpEstabelecimento.getBtpUsuario().getUsuCodUsuario()))
-			throw new SessionUserNotFoundException();
-
-		if (!Utils.hasValue(btpEstabelecimento.getEstCodEstabelecimento()))
-			throw new RequiredColumnNotFoundException();
-
-		StringBuilder sql = new StringBuilder();
-		sql.append("delete from ");
-		sql.append("  est_estabelecimento ");
-		sql.append("where ");
-		sql.append("  est_cod_estabelecimento = " + btpEstabelecimento.getEstCodEstabelecimento() + " ");
-		sql.append("  and usu_cod_usuario = " + btpEstabelecimento.getBtpUsuario().getUsuCodUsuario() + " ");
-
-		this.dbConn.statementExecuteUpdate(sql.toString());
-
-		return btpEstabelecimento;
 	}
 }

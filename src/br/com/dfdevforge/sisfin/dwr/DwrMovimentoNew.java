@@ -1,9 +1,11 @@
 package br.com.dfdevforge.sisfin.dwr;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.cagece.core.ftp.exception.FtpLogoutFailedException;
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpCompetencia;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
@@ -94,7 +96,7 @@ public class DwrMovimentoNew extends DwrAbstract
 		return false;
 	}
 
-	public DwrReturn loadEstabelecimentoCombo(BtpEstabelecimento btpEstabelecimento) throws SQLException
+	public DwrReturn loadEstabelecimentoCombo(BtpEstabelecimento btpEstabelecimento) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
 		ConnectionManager connectionManager = null;
@@ -128,7 +130,7 @@ public class DwrMovimentoNew extends DwrAbstract
 		return dwrReturn;
 	}
 
-	public DwrReturn loadContaCombo(BtpConta btpConta) throws SQLException
+	public DwrReturn loadContaCombo(BtpConta btpConta) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
 		ConnectionManager dbConn = null;
@@ -162,7 +164,7 @@ public class DwrMovimentoNew extends DwrAbstract
 		return dwrReturn;
 	}
 
-	public DwrReturn loadFormaPagamentoCombo(BtpFormaPagamento btpFormaPagamento) throws SQLException
+	public DwrReturn loadFormaPagamentoCombo(BtpFormaPagamento btpFormaPagamento) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
 		ConnectionManager dbConn = null;

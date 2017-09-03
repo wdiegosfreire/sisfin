@@ -13,6 +13,8 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import br.com.cagece.core.persistence.api.ConnectionManager;
+import br.com.cagece.core.persistence.exception.JpaMappingNotFoundException;
+import br.com.cagece.core.persistence.exception.RequiredFieldNotFoundException;
 import br.com.dfdevforge.sisfin.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.constants.Constants;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
@@ -24,15 +26,17 @@ import br.com.dfdevforge.sisfin.exception.TimezoneValueException;
 
 public class ActEstabelecimento extends ActAbstract
 {
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+	public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		ActionMessages actMsg = new ActionMessages();
 		BusEstabelecimento busEstabelecimento = null;
 		ConnectionManager connectionManager = null;
 
-		command = ((FrmEstabelecimento) form).getCmd();
+		command = ((FrmEstabelecimento) actionForm).getCmd();
 
-		((FrmEstabelecimento) form).getBtpEstabelecimento().setBtpUsuario(this.getUserFromSession(request));
+		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
+
+		frmEstabelecimento.getBtpEstabelecimento().setBtpUsuario(this.getUserFromSession(request));
 
 		try
 		{
@@ -40,29 +44,17 @@ public class ActEstabelecimento extends ActAbstract
 			busEstabelecimento = new BusEstabelecimento(connectionManager);
 
 			if (command.equals(Constants.actShowMainPage))
-			{
-				actShowMainPage(request, form, busEstabelecimento);
-			}
+				actShowMainPage(request, frmEstabelecimento, busEstabelecimento);
 			else if (command.equals(Constants.actShowEditForm))
-			{
-				actShowEditForm(request, form, busEstabelecimento);
-			}
+				actShowEditForm(request, frmEstabelecimento, busEstabelecimento);
 			else if (command.equals(Constants.actShowInclForm))
-			{
-				actShowInclForm(request, form, busEstabelecimento);
-			}
+				actShowInclForm(request, frmEstabelecimento, busEstabelecimento);
 			else if (command.equals(Constants.actExecDelete))
-			{
-				actExecDelete(request, form, busEstabelecimento);
-			}
+				actExecDelete(request, frmEstabelecimento, busEstabelecimento);
 			else if (command.equals(Constants.actExecUpdate))
-			{
-				actExecUpdate(request, form, busEstabelecimento);
-			}
+				actExecUpdate(request, frmEstabelecimento, busEstabelecimento);
 			else if (command.equals(Constants.actExecInsert))
-			{
-				actExecInsert(request, form, busEstabelecimento);
-			}
+				actExecInsert(request, frmEstabelecimento, busEstabelecimento);
 
 			connectionManager.commit();
 		}
@@ -115,75 +107,45 @@ public class ActEstabelecimento extends ActAbstract
 		return (mapping.findForward(command));
 	}
 
-	public boolean actExecSearch(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException
+	public void actExecSearch(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SQLException
 	{
-		return false;
 	}
 
-	public boolean actExecInsert(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, RequiredColumnNotFoundException, NullBeanException, SessionUserNotFoundException, TimezoneValueException, Exception
+	public void actExecInsert(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SessionUserNotFoundException, SQLException, JpaMappingNotFoundException, Exception
 	{
-		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
-
 		busEstabelecimento.incluir(frmEstabelecimento.getBtpEstabelecimento());
-
 		frmEstabelecimento.reset(null, null);
-
-		actShowMainPage(request, actionForm, busEstabelecimento);
-
-		return true;
+		actShowMainPage(request, frmEstabelecimento, busEstabelecimento);
 	}
 
-	public boolean actShowEditForm(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
+	public void actShowEditForm(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
-		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
-
 		List<BtpEstabelecimento> btpEstList = busEstabelecimento.editar(frmEstabelecimento.getBtpEstabelecimento());
-
 		frmEstabelecimento.setBtpEstabelecimento(btpEstList.get(0));
 		setListOnRequest(request, btpEstList, "btpEstabelecimentoList");
-
-		return false;
 	}
 
-	public boolean actShowMainPage(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
+	public void actShowMainPage(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SQLException, SessionUserNotFoundException, TimezoneValueException
 	{
-		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
-
 		setListOnRequest(request, busEstabelecimento.consultar(frmEstabelecimento.getBtpEstabelecimento(), frmEstabelecimento.getSqlOrder()), "btpEstabelecimentoList");
-
-		return true;
 	}
 
-	public boolean actExecUpdate(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public void actExecUpdate(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SessionUserNotFoundException, SQLException, RequiredFieldNotFoundException, JpaMappingNotFoundException, Exception
 	{
-		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
-
 		busEstabelecimento.alterar(frmEstabelecimento.getBtpEstabelecimento());
-
 		frmEstabelecimento.reset(null, null);
-
-		actShowMainPage(request, actionForm, busEstabelecimento);
-
-		return true;
+		actShowMainPage(request, frmEstabelecimento, busEstabelecimento);
 	}
 
-	public boolean actExecDelete(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public void actExecDelete(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SessionUserNotFoundException, SQLException, RequiredFieldNotFoundException, JpaMappingNotFoundException, Exception
 	{
-		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
 		busEstabelecimento.excluir(frmEstabelecimento.getBtpEstabelecimento());
-
 		frmEstabelecimento.reset(null, null);
-
-		actShowMainPage(request, actionForm, busEstabelecimento);
-
-		return true;
+		actShowMainPage(request, frmEstabelecimento, busEstabelecimento);
 	}
 
-	public boolean actShowInclForm(HttpServletRequest request, ActionForm actionForm, BusEstabelecimento busEstabelecimento) throws SQLException, Exception
+	public void actShowInclForm(HttpServletRequest request, FrmEstabelecimento frmEstabelecimento, BusEstabelecimento busEstabelecimento) throws SQLException, Exception
 	{
-		FrmEstabelecimento frmEstabelecimento = (FrmEstabelecimento) actionForm;
 		busEstabelecimento.incluir(frmEstabelecimento.getBtpEstabelecimento());
-
-		return true;
 	}
 }
