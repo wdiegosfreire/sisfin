@@ -19,12 +19,12 @@ import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
 import br.com.dfdevforge.sisfin.bean.BtpTemplate;
 import br.com.dfdevforge.sisfin.business.BusConta;
-import br.com.dfdevforge.sisfin.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.business.BusFormaPagamento;
 import br.com.dfdevforge.sisfin.business.BusObjetivo;
 import br.com.dfdevforge.sisfin.business.BusTemplate;
 import br.com.dfdevforge.sisfin.constants.Constants;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
 import br.com.dfdevforge.sisfin.exception.TimezoneValueException;
 import br.com.dfdevforge.sisfin.form.FrmObjetivo;
@@ -133,8 +133,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de templates
 		BtpTemplate btpTemplate = new BtpTemplate();
@@ -172,8 +172,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();
@@ -206,8 +206,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();

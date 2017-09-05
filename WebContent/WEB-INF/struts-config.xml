@@ -100,7 +100,7 @@
 
 		<action 
 			path="/estabelecimento" 
-			type="br.com.dfdevforge.sisfin.action.ActEstabelecimento" 
+			type="br.com.dfdevforge.sisfin.estabelecimento.action.ActEstabelecimento" 
 			name="FrmEstabelecimento" 
 			input="/pages/erro.jsp" 
 			validate="false">

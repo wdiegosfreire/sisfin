@@ -19,12 +19,12 @@ import br.com.dfdevforge.sisfin.bean.BtpTipoExtrato;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;
 import br.com.dfdevforge.sisfin.business.BusBanco;
 import br.com.dfdevforge.sisfin.business.BusConta;
-import br.com.dfdevforge.sisfin.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.business.BusExtrato;
 import br.com.dfdevforge.sisfin.business.BusFormaPagamento;
 import br.com.dfdevforge.sisfin.business.BusTipoExtrato;
 import br.com.dfdevforge.sisfin.constants.Constants;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -209,8 +209,8 @@ public class ActExtrato extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmExtrato.getBtpExtrato().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();

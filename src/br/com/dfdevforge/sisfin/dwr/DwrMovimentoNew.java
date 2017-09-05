@@ -9,11 +9,11 @@ import br.com.dfdevforge.sisfin.bean.BtpCompetencia;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
 import br.com.dfdevforge.sisfin.business.BusConta;
-import br.com.dfdevforge.sisfin.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.business.BusFormaPagamento;
 import br.com.dfdevforge.sisfin.business.BusMovimentoNew;
 import br.com.dfdevforge.sisfin.constants.EnumComandoNavegacao;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.util.Utils;
 
@@ -108,8 +108,8 @@ public class DwrMovimentoNew extends DwrAbstract
 
 			btpEstabelecimento.setBtpUsuario(DWRUtil.getSessionUser());
 
-			BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-			List<BtpEstabelecimento> btpEstabelecimentoListCombo = busEstabelecimento.consultar(btpEstabelecimento, conn, 2);
+			BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+			List<BtpEstabelecimento> btpEstabelecimentoListCombo = busEstabelecimento.consultar(btpEstabelecimento, 2);
 
 			dwrReturn.setBtpResultList(btpEstabelecimentoListCombo);
 
