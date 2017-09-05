@@ -27,10 +27,6 @@ public class DwrMovimento
 			e.printStackTrace();
 			dbConn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (NullBeanException e)
 		{
 			e.printStackTrace();

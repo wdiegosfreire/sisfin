@@ -23,7 +23,7 @@
 
 		<!-- Botões de opção do formulário principal -->
 		<hr size="1">
-		<table border="0" width="100%">
+		<table style="width: 100%;">
 			<tr>
 				<td align="left" nowrap>
 					<logic:notEqual name="FrmFormaPagamento" property="cmd" value="actShowEditForm">

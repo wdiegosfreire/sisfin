@@ -4,59 +4,78 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.cagece.core.persistence.api.ConnectionManager;
+import br.com.cagece.core.persistence.exception.JpaMappingNotFoundException;
+import br.com.cagece.core.persistence.exception.RequiredFieldNotFoundException;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
 import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoDelete;
 import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoInsert;
-import br.com.dfdevforge.sisfin.exception.NullBeanException;
-import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
+import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoUpdate;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
-import br.com.dfdevforge.sisfin.exception.TimezoneValueException;
 
 public class BusEstabelecimento
 {
-	BtpEstabelecimento btpEstabelecimento;
+	private ConnectionManager connectionManager;
 
-	public void alterar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
+	public BusEstabelecimento(ConnectionManager connectionManager)
 	{
-		PrsEstabelecimento prs = new PrsEstabelecimento(conn);
-		prs.update(btpEstabelecimento);
+		this.connectionManager = connectionManager;
 	}
 
-	public List<BtpEstabelecimento> cadastrar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn)
+	public void incluir(BtpEstabelecimento btpEstabelecimento) throws SQLException, SessionUserNotFoundException, JpaMappingNotFoundException, Exception
 	{
-		return null;
-	}
-
-	public List<BtpEstabelecimento> editar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn) throws SQLException, SessionUserNotFoundException, TimezoneValueException
-	{
-		return this.consultar(btpEstabelecimento, conn, 0);
-	}
-
-	public void excluir(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn) throws NullBeanException, RequiredColumnNotFoundException, SQLException, SessionUserNotFoundException, TimezoneValueException
-	{
-		PrsEstabelecimento prs = new PrsEstabelecimento(conn);
-		prs.delete(btpEstabelecimento);
-	}
-
-	public List<BtpEstabelecimento> exibir(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn)
-	{
-		return null;
-	}
-
-	public List<BtpEstabelecimento> consultar(BtpEstabelecimento btpEstabelecimento, ConnectionManager conn, int sqlOrdem) throws SQLException, SessionUserNotFoundException, TimezoneValueException
-	{
-		PrsEstabelecimento prs = new PrsEstabelecimento(conn);
-		List<BtpEstabelecimento> btpEstabelecimentoList = prs.select(btpEstabelecimento, sqlOrdem);
-
-		return btpEstabelecimentoList;
-	}
-
-	public void incluir(BtpEstabelecimento btpEstabelecimento, ConnectionManager connection) throws SQLException, Exception
-	{
-		PrsEstabelecimentoInsert prsEstabelecimento = new PrsEstabelecimentoInsert(btpEstabelecimento, connection);
+		PrsEstabelecimentoInsert prsEstabelecimento = new PrsEstabelecimentoInsert(btpEstabelecimento, this.connectionManager);
 		prsEstabelecimento.execute();
 
 		if (prsEstabelecimento.getAffectedRows() != 1)
 			throw new Exception("O número de registros inseridos foi diferente de 1");
+	}
+
+	public void alterar(BtpEstabelecimento btpEstabelecimento) throws SQLException, RequiredFieldNotFoundException, SessionUserNotFoundException, JpaMappingNotFoundException, Exception
+	{
+		PrsEstabelecimentoUpdate prsEstabelecimento = new PrsEstabelecimentoUpdate(btpEstabelecimento, this.connectionManager);
+		prsEstabelecimento.execute();
+		
+		if (prsEstabelecimento.getAffectedRows() != 1)
+			throw new Exception("O número de registros inseridos foi diferente de 1");
+	}
+
+	public void excluir(BtpEstabelecimento btpEstabelecimento) throws SQLException, RequiredFieldNotFoundException, SessionUserNotFoundException, JpaMappingNotFoundException, Exception
+	{
+		PrsEstabelecimentoDelete prsEstabelecimento = new PrsEstabelecimentoDelete(btpEstabelecimento, this.connectionManager);
+		prsEstabelecimento.execute();
+		
+		if (prsEstabelecimento.getAffectedRows() != 1)
+			throw new Exception("O número de registros inseridos foi diferente de 1");
+	}
+
+	/*
+	 * Métodos não refatorados
+	 */
+	public void cadastrar(BtpEstabelecimento btpEstabelecimento)
+	{
+	}
+
+	public List<BtpEstabelecimento> editar(BtpEstabelecimento btpEstabelecimento) throws SessionUserNotFoundException, SQLException
+	{
+		return this.consultar(btpEstabelecimento, 0);
+	}
+
+//	public void excluir(BtpEstabelecimento btpEstabelecimento) throws SQLException, NullBeanException, RequiredColumnNotFoundException, SessionUserNotFoundException
+//	{
+//		PrsEstabelecimento prs = new PrsEstabelecimento(connectionManager);
+//		prs.delete(btpEstabelecimento);
+//	}
+
+	public void exibir(BtpEstabelecimento btpEstabelecimento)
+	{
+	}
+
+	public List<BtpEstabelecimento> consultar(BtpEstabelecimento btpEstabelecimento, int sqlOrdem) throws SQLException, SessionUserNotFoundException
+	{
+		PrsEstabelecimento prs = new PrsEstabelecimento(connectionManager);
+		List<BtpEstabelecimento> btpEstabelecimentoList = prs.select(btpEstabelecimento, sqlOrdem);
+
+		return btpEstabelecimentoList;
 	}
 }

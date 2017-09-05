@@ -1,9 +1,11 @@
 package br.com.dfdevforge.sisfin.dwr;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.cagece.core.ftp.exception.FtpLogoutFailedException;
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpCompetencia;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
@@ -94,41 +96,41 @@ public class DwrMovimentoNew extends DwrAbstract
 		return false;
 	}
 
-	public DwrReturn loadEstabelecimentoCombo(BtpEstabelecimento btpEstabelecimento) throws SQLException
+	public DwrReturn loadEstabelecimentoCombo(BtpEstabelecimento btpEstabelecimento) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
-		ConnectionManager conn = null;
+		ConnectionManager connectionManager = null;
 
 		try
 		{
-			conn = new ConnectionManager();
+			connectionManager = new ConnectionManager();
 
 			if (btpEstabelecimento == null)
 				btpEstabelecimento = new BtpEstabelecimento();
 
 			btpEstabelecimento.setBtpUsuario(DWRUtil.getSessionUser());
 
-			BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-			List<BtpEstabelecimento> btpEstabelecimentoListCombo = busEstabelecimento.consultar(btpEstabelecimento, conn, 2);
+			BusEstabelecimento busEstabelecimento = new BusEstabelecimento(connectionManager);
+			List<BtpEstabelecimento> btpEstabelecimentoListCombo = busEstabelecimento.consultar(btpEstabelecimento, 2);
 
 			dwrReturn.setBtpResultList(btpEstabelecimentoListCombo);
 
-			conn.commit();
+			connectionManager.commit();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			conn.rollback();
+			connectionManager.rollback();
 		}
 		finally
 		{
-			ConnectionManager.closeConnection(conn);
+			ConnectionManager.closeConnection(connectionManager);
 		}
 
 		return dwrReturn;
 	}
 
-	public DwrReturn loadContaCombo(BtpConta btpConta) throws SQLException
+	public DwrReturn loadContaCombo(BtpConta btpConta) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
 		ConnectionManager dbConn = null;
@@ -162,7 +164,7 @@ public class DwrMovimentoNew extends DwrAbstract
 		return dwrReturn;
 	}
 
-	public DwrReturn loadFormaPagamentoCombo(BtpFormaPagamento btpFormaPagamento) throws SQLException
+	public DwrReturn loadFormaPagamentoCombo(BtpFormaPagamento btpFormaPagamento) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		DwrReturn dwrReturn = new DwrReturn();
 		ConnectionManager dbConn = null;

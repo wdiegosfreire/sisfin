@@ -1,5 +1,6 @@
 package br.com.dfdevforge.sisfin.action;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.ftp.exception.FtpLogoutFailedException;
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpCompetencia;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
@@ -32,7 +34,7 @@ import br.com.dfdevforge.sisfin.form.FrmMovimentoNew;
 
 public class ActMovimentoNew extends ActAbstract
 {
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		ActionMessages messageList = new ActionMessages();
 		BusResumo busResumo = new BusResumo();
@@ -130,8 +132,8 @@ public class ActMovimentoNew extends ActAbstract
 		List<BtpConta> btpContaList = busConta.consultar(btpConta, conn, 3);
 		setListOnRequest(request, btpContaList, "btpContaListCombo");
 
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		List<BtpEstabelecimento> btpEstabelecimentoList = busEstabelecimento.consultar(btpEstabelecimento, conn, 2);
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		List<BtpEstabelecimento> btpEstabelecimentoList = busEstabelecimento.consultar(btpEstabelecimento, 2);
 		setListOnRequest(request, btpEstabelecimentoList, "btpEstabelecimentoListCombo");
 
 		BusFormaPagamento busFormaPagamento = new BusFormaPagamento();

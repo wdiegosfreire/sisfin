@@ -1,5 +1,6 @@
 package br.com.dfdevforge.sisfin.action;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import br.com.cagece.core.ftp.exception.FtpLogoutFailedException;
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
@@ -30,7 +32,7 @@ import br.com.dfdevforge.sisfin.form.FrmObjetivo;
 
 public class ActObjetivo extends ActAbstract
 {
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		ActionMessages actMsg = new ActionMessages();
 		
@@ -78,10 +80,6 @@ public class ActObjetivo extends ActAbstract
 			e.printStackTrace();
 			actMsg.add(e.getClass().getSimpleName(), new ActionMessage(e.getClass().getName()));
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (SessionUserNotFoundException e)
 		{
 			dbConn.rollback();
@@ -93,14 +91,6 @@ public class ActObjetivo extends ActAbstract
 			dbConn.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
-		}
-		catch (InstantiationException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
@@ -128,8 +118,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de templates
 		BtpTemplate btpTemplate = new BtpTemplate();
@@ -167,8 +157,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();
@@ -201,8 +191,8 @@ public class ActObjetivo extends ActAbstract
 		// Carregando o combobox de estabelecimentos
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(frmObjetivo.getBtpObjetivo().getBtpUsuario());
-		BusEstabelecimento busEstabelecimento = new BusEstabelecimento();
-		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, conn, 2), "btpEstabelecimentoListCombo");
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(conn);
+		this.setListOnRequest(request, busEstabelecimento.consultar(btpEstabelecimento, 2), "btpEstabelecimentoListCombo");
 
 		// Carregando o combobox de formas de pagamento
 		BtpFormaPagamento btpFormaPagamento = new BtpFormaPagamento();

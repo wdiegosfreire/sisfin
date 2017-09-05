@@ -1,5 +1,6 @@
 package br.com.dfdevforge.sisfin.action;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
@@ -14,6 +15,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import br.com.cagece.core.ftp.exception.FtpLogoutFailedException;
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpUsuario;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;
@@ -26,7 +28,7 @@ import br.com.dfdevforge.sisfin.form.FrmLogin;
 
 public class ActLogin extends ActAbstract
 {
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		ActionMessages actMsg = new ActionMessages();
 		BusUsuario bus = new BusUsuario();
@@ -68,10 +70,6 @@ public class ActLogin extends ActAbstract
 			conn.rollback();
 			actMsg.add(e.getClass().getSimpleName(), new ActionMessage(e.getClass().getName()));
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (SessionUserNotFoundException e)
 		{
 			e.printStackTrace();
@@ -89,14 +87,6 @@ public class ActLogin extends ActAbstract
 			e.printStackTrace();
 			conn.rollback();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
-		}
-		catch (InstantiationException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
