@@ -16,7 +16,7 @@ public class PrsInsertExtratoByTable extends PrsAbstract implements UpdateablePe
 {
 	public PrsInsertExtratoByTable(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -47,20 +47,20 @@ public class PrsInsertExtratoByTable extends PrsAbstract implements UpdateablePe
 		sql.append(")");
 		sql.append("values(?, ?, ?, ?, ?, ?, ?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
 		to.setExtCodExtrato(this.getPrimaryKey("ext_extrato", "ext_cod_extrato"));
 
-		this.dbConn.preparedStatementSetParameter(1, to.getExtCodExtrato());
-		this.dbConn.preparedStatementSetParameter(2, to.getExtDatAno());
-		this.dbConn.preparedStatementSetParameter(3, to.getExtDatMes());
-		this.dbConn.preparedStatementSetParameter(4, to.getExtVlrSaldoInicial());
-		this.dbConn.preparedStatementSetParameter(5, to.getExtVlrSaldoFinal());
-		this.dbConn.preparedStatementSetParameter(6, to.getBtpTipoExtrato().getTieCodTipoExtrato());
-		this.dbConn.preparedStatementSetParameter(7, to.getBtpBanco().getBanCodBanco());
-		this.dbConn.preparedStatementSetParameter(8, to.getBtpUsuario().getUsuCodUsuario());
+		this.connectionManager.preparedStatementSetParameter(1, to.getExtCodExtrato());
+		this.connectionManager.preparedStatementSetParameter(2, to.getExtDatAno());
+		this.connectionManager.preparedStatementSetParameter(3, to.getExtDatMes());
+		this.connectionManager.preparedStatementSetParameter(4, to.getExtVlrSaldoInicial());
+		this.connectionManager.preparedStatementSetParameter(5, to.getExtVlrSaldoFinal());
+		this.connectionManager.preparedStatementSetParameter(6, to.getBtpTipoExtrato().getTieCodTipoExtrato());
+		this.connectionManager.preparedStatementSetParameter(7, to.getBtpBanco().getBanCodBanco());
+		this.connectionManager.preparedStatementSetParameter(8, to.getBtpUsuario().getUsuCodUsuario());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}

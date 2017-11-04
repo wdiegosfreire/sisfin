@@ -9,7 +9,7 @@ import br.com.cagece.core.persistence.api.ConnectionManager;
 
 public abstract class PrsAbstract
 {
-	protected ConnectionManager dbConn;
+	protected ConnectionManager connectionManager;
 
 	public Integer getPrimaryKey(String tableName, String fieldName) throws SQLException
 	{
@@ -18,12 +18,12 @@ public abstract class PrsAbstract
 		StringBuilder sql = new StringBuilder();
 		sql.append("select max(" + fieldName + ") + 1 COD from " + tableName);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
-			if (this.dbConn.getResultSet().getString("COD") != null)
-				key = this.dbConn.getResultSet().getInt("COD");
+			if (this.connectionManager.getResultSet().getString("COD") != null)
+				key = this.connectionManager.getResultSet().getInt("COD");
 		}
 
 		return key;
@@ -44,12 +44,12 @@ public abstract class PrsAbstract
 		StringBuilder sql = new StringBuilder();
 		sql.append("select @@global.time_zone timezone");
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		String timezone = "";
 
-		while (this.dbConn.getResultSet().next())
-			timezone = this.dbConn.getResultSet().getString("timezone");
+		while (this.connectionManager.getResultSet().next())
+			timezone = this.connectionManager.getResultSet().getString("timezone");
 
 		return timezone;
 	}

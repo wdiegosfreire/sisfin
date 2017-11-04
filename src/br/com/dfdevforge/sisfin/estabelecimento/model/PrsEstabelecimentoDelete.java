@@ -1,4 +1,4 @@
-package br.com.dfdevforge.sisfin.estabelecimento.persistence;
+package br.com.dfdevforge.sisfin.estabelecimento.model;
 
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.cagece.core.persistence.api.DeleteStrategy;

@@ -15,7 +15,7 @@ public class PrsInsertBancoByTable extends PrsAbstract implements UpdateablePers
 {
 	public PrsInsertBancoByTable(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -33,14 +33,14 @@ public class PrsInsertBancoByTable extends PrsAbstract implements UpdateablePers
 		sql.append(")");
 		sql.append("values(?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
 		to.setBanCodBanco(this.getPrimaryKey("ban_banco", "ban_cod_banco"));
 
-		this.dbConn.preparedStatementSetParameter(1, to.getBanCodBanco());
-		this.dbConn.preparedStatementSetParameter(2, to.getBanTxtNome());
+		this.connectionManager.preparedStatementSetParameter(1, to.getBanCodBanco());
+		this.connectionManager.preparedStatementSetParameter(2, to.getBanTxtNome());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}

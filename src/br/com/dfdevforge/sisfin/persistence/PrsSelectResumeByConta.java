@@ -13,7 +13,7 @@ public class PrsSelectResumeByConta extends PrsAbstract implements SelectablePer
 {
 	public PrsSelectResumeByConta(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -50,18 +50,18 @@ public class PrsSelectResumeByConta extends PrsAbstract implements SelectablePer
 		sql.append("  pai.con_cod_conta ");
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		List<BtpConta> btpContaList = new ArrayList<BtpConta>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpConta btp = new BtpConta();
 
-			btp.setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta"));
-			btp.setConTxtDescricao(this.dbConn.getResultSet().getString("con_txt_descricao"));
-			btp.setConNumNivel(this.dbConn.getResultSet().getString("con_num_nivel"));
-			btp.getMap().put("auxVlrTotal", this.dbConn.getResultSet().getString("mov_vlr_total"));
+			btp.setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta"));
+			btp.setConTxtDescricao(this.connectionManager.getResultSet().getString("con_txt_descricao"));
+			btp.setConNumNivel(this.connectionManager.getResultSet().getString("con_num_nivel"));
+			btp.getMap().put("auxVlrTotal", this.connectionManager.getResultSet().getString("mov_vlr_total"));
 
 			btpContaList.add(btp);
 		}

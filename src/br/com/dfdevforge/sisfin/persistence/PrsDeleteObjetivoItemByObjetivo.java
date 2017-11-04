@@ -14,7 +14,7 @@ public class PrsDeleteObjetivoItemByObjetivo extends PrsAbstract implements Upda
 {
 	public PrsDeleteObjetivoItemByObjetivo(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -30,7 +30,7 @@ public class PrsDeleteObjetivoItemByObjetivo extends PrsAbstract implements Upda
 		sql.append("delete from obi_objetivo_item where obj_cod_objetivo = " + btpObjetivoItem.getBtpObjetivo().getObjCodObjetivo());
 
 		
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

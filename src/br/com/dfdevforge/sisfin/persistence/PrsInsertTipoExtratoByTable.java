@@ -15,7 +15,7 @@ public class PrsInsertTipoExtratoByTable extends PrsAbstract implements Updateab
 {
 	public PrsInsertTipoExtratoByTable(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -33,14 +33,14 @@ public class PrsInsertTipoExtratoByTable extends PrsAbstract implements Updateab
 		sql.append(")");
 		sql.append("values(?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
 		to.setTieCodTipoExtrato(this.getPrimaryKey("tie_tipo_extrato", "tie_cod_tipo_extrato"));
 
-		this.dbConn.preparedStatementSetParameter(1, to.getTieCodTipoExtrato());
-		this.dbConn.preparedStatementSetParameter(2, to.getTieTxtNome());
+		this.connectionManager.preparedStatementSetParameter(1, to.getTieCodTipoExtrato());
+		this.connectionManager.preparedStatementSetParameter(2, to.getTieTxtNome());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}

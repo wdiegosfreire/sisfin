@@ -18,14 +18,13 @@ import br.com.dfdevforge.sisfin.bean.BtpTemplate;
 import br.com.dfdevforge.sisfin.bean.BtpUsuario;
 import br.com.dfdevforge.sisfin.behavior.TransferObject;
 import br.com.dfdevforge.sisfin.business.BusConta;
-import br.com.dfdevforge.sisfin.business.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.business.BusFormaPagamento;
 import br.com.dfdevforge.sisfin.business.BusObjetivo;
 import br.com.dfdevforge.sisfin.business.BusRegra;
 import br.com.dfdevforge.sisfin.business.BusTemplate;
 import br.com.dfdevforge.sisfin.constants.EnumComandoNavegacao;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.model.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -117,11 +116,8 @@ public class DwrObjetivo extends DwrAbstract
 			BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 			btpEstabelecimento.setBtpUsuario(btpUsuario);
 
-			BusEstabelecimento b = new BusEstabelecimento(connectionManager);
-			b.consultar(btpEstabelecimento, 1);
-
-			PrsEstabelecimento prsEstabelecimento = new PrsEstabelecimento(connectionManager);
-			btpEstabelecimentoList = prsEstabelecimento.select(null, 1);
+			BusEstabelecimento busEstabelecimento = new BusEstabelecimento(connectionManager);
+			btpEstabelecimentoList = busEstabelecimento.consultar(null, 1);
 
 			connectionManager.commit();
 		}

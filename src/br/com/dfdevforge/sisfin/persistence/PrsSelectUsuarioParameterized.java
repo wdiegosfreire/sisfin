@@ -14,7 +14,7 @@ public class PrsSelectUsuarioParameterized extends PrsAbstract implements Select
 {
 	public PrsSelectUsuarioParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -54,18 +54,18 @@ public class PrsSelectUsuarioParameterized extends PrsAbstract implements Select
 		sql.append( cond);
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpUsuarioList = new ArrayList<BtpUsuario>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpUsuario btp = new BtpUsuario();
 
-			btp.setUsuCodUsuario(this.dbConn.getResultSet().getInt("usu_cod_usuariO"));
-			btp.setUsuTxtNome(this.dbConn.getResultSet().getString("usu_txt_nome"));
-			btp.setUsuTxtSenha(this.dbConn.getResultSet().getString("usu_txt_senha"));
-			btp.setUsuTxtEmail(this.dbConn.getResultSet().getString("usu_txt_email"));
+			btp.setUsuCodUsuario(this.connectionManager.getResultSet().getInt("usu_cod_usuariO"));
+			btp.setUsuTxtNome(this.connectionManager.getResultSet().getString("usu_txt_nome"));
+			btp.setUsuTxtSenha(this.connectionManager.getResultSet().getString("usu_txt_senha"));
+			btp.setUsuTxtEmail(this.connectionManager.getResultSet().getString("usu_txt_email"));
 
 			btpUsuarioList.add(btp);
 		}

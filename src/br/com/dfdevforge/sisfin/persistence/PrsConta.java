@@ -22,7 +22,7 @@ public class PrsConta extends PrsAbstract implements Persistence
 
 	public PrsConta(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{ 
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -70,25 +70,25 @@ public class PrsConta extends PrsAbstract implements Persistence
 		sql.append(   cond + " ");
 		sql.append(   order + " ");
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpContaList = new ArrayList<BtpConta>();
 		BtpConta btpConta = null;
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			btpConta = new BtpConta();
 
-			btpConta.setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta"));
-			btpConta.setConTxtDescricao(this.dbConn.getResultSet().getString("con_txt_descricao"));
-			btpConta.setConNumNivel(this.dbConn.getResultSet().getString("con_num_nivel"));
-			btpConta.setConFlgMovimento(this.dbConn.getResultSet().getBoolean("con_flg_movimento"));
-			btpConta.setConFlgPoupanca(this.dbConn.getResultSet().getBoolean("con_flg_poupanca"));
-			btpConta.setConFlgVirtual(this.dbConn.getResultSet().getBoolean("con_flg_virtual"));
+			btpConta.setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta"));
+			btpConta.setConTxtDescricao(this.connectionManager.getResultSet().getString("con_txt_descricao"));
+			btpConta.setConNumNivel(this.connectionManager.getResultSet().getString("con_num_nivel"));
+			btpConta.setConFlgMovimento(this.connectionManager.getResultSet().getBoolean("con_flg_movimento"));
+			btpConta.setConFlgPoupanca(this.connectionManager.getResultSet().getBoolean("con_flg_poupanca"));
+			btpConta.setConFlgVirtual(this.connectionManager.getResultSet().getBoolean("con_flg_virtual"));
 
 			if (btpConta.getBtpContaPai() == null)
 				btpConta.setBtpContaPai(new BtpConta());
 
-			btpConta.getBtpContaPai().setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta_pai"));
+			btpConta.getBtpContaPai().setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta_pai"));
 
 			btpContaList.add(btpConta);
 		}
@@ -170,32 +170,32 @@ public class PrsConta extends PrsAbstract implements Persistence
 		sql.append("order by ");
 		sql.append("  con_num_nivel, aux_num_ordem ");
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpContaList = new ArrayList<BtpConta>();
 		BtpConta btpConta = null;
 
 		int conCodConta = 0;
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
-			if (conCodConta != this.dbConn.getResultSet().getInt("con_cod_conta"))
+			if (conCodConta != this.connectionManager.getResultSet().getInt("con_cod_conta"))
 			{
 				btpConta = new BtpConta();
 
-				btpConta.setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta"));
-				btpConta.setConNumNivel(this.dbConn.getResultSet().getString("con_num_nivel"));
-				btpConta.setConTxtDescricao(this.dbConn.getResultSet().getString("con_txt_descricao"));
+				btpConta.setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta"));
+				btpConta.setConNumNivel(this.connectionManager.getResultSet().getString("con_num_nivel"));
+				btpConta.setConTxtDescricao(this.connectionManager.getResultSet().getString("con_txt_descricao"));
 
 				btpContaList.add(btpConta);
-				conCodConta = this.dbConn.getResultSet().getInt("con_cod_conta");
+				conCodConta = this.connectionManager.getResultSet().getInt("con_cod_conta");
 			}
 
 			BtpMovimento b = new BtpMovimento();
 
-			b.setMovVlrMovimentado(this.dbConn.getResultSet().getBigDecimal("mov_vlr_movimento"));
-			b.getMap().put("auxTxtTipo", this.dbConn.getResultSet().getString("aux_txt_tipo"));
-			b.getMap().put("auxTxtSiglaTipo", this.dbConn.getResultSet().getString("aux_txt_sigla_tipo"));
+			b.setMovVlrMovimentado(this.connectionManager.getResultSet().getBigDecimal("mov_vlr_movimento"));
+			b.getMap().put("auxTxtTipo", this.connectionManager.getResultSet().getString("aux_txt_tipo"));
+			b.getMap().put("auxTxtSiglaTipo", this.connectionManager.getResultSet().getString("aux_txt_sigla_tipo"));
 
 			btpConta.getBtpMovimentoList().add(b);
 		}
@@ -279,7 +279,7 @@ public class PrsConta extends PrsAbstract implements Persistence
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into con_conta(" + fields + ") values(" + values + ")");
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}
@@ -330,7 +330,7 @@ public class PrsConta extends PrsAbstract implements Persistence
 		sql.append("  con_cod_conta = " + btpConta.getConCodConta() + " ");
 		sql.append("  and usu_cod_usuario = " + btpConta.getBtpUsuario().getUsuCodUsuario() + " ");
 
-		this.dbConn.statementExecuteUpdate(sql.toString());
+		this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return btpConta;
 	}
@@ -353,7 +353,7 @@ public class PrsConta extends PrsAbstract implements Persistence
 		sql.append("  con_cod_conta = " + btpConta.getConCodConta() + " ");
 		sql.append("  and usu_cod_usuario = " + btpConta.getBtpUsuario().getUsuCodUsuario() + " ");
 
-		this.dbConn.statementExecuteUpdate(sql.toString());
+		this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return btpConta;
 	}
@@ -400,7 +400,7 @@ public class PrsConta extends PrsAbstract implements Persistence
 		StringBuilder sql = new StringBuilder();
 		sql.append("update con_conta set " + values + " where con_cod_conta = " + btpConta.getConCodConta());
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

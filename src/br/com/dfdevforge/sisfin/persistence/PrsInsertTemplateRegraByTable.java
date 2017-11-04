@@ -15,7 +15,7 @@ public class PrsInsertTemplateRegraByTable extends PrsAbstract implements Update
 {
 	public PrsInsertTemplateRegraByTable(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -36,13 +36,13 @@ public class PrsInsertTemplateRegraByTable extends PrsAbstract implements Update
 		sql.append(")");
 		sql.append("values(?, ?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
-		this.dbConn.preparedStatementSetParameter(1, to.getTerCodValorAssociado());
-		this.dbConn.preparedStatementSetParameter(2, to.getBtpTemplate().getTemCodTemplate());
-		this.dbConn.preparedStatementSetParameter(3, to.getBtpRegra().getRegCodRegra());
+		this.connectionManager.preparedStatementSetParameter(1, to.getTerCodValorAssociado());
+		this.connectionManager.preparedStatementSetParameter(2, to.getBtpTemplate().getTemCodTemplate());
+		this.connectionManager.preparedStatementSetParameter(3, to.getBtpRegra().getRegCodRegra());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}

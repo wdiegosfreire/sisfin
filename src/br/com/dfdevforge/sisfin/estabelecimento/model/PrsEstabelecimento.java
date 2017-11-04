@@ -1,4 +1,4 @@
-package br.com.dfdevforge.sisfin.estabelecimento.persistence;
+package br.com.dfdevforge.sisfin.estabelecimento.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ public class PrsEstabelecimento extends PrsAbstract
 
 	public PrsEstabelecimento(ConnectionManager dbConn) throws SQLException
 	{ 
-		this.dbConn = dbConn;
+		this.connectionManager = dbConn;
 	}
 
-	public List<BtpEstabelecimento> select(BtpEstabelecimento btpEstabelecimento, int sqlOrder) throws SQLException, SessionUserNotFoundException
+	protected List<BtpEstabelecimento> select(BtpEstabelecimento btpEstabelecimento, int sqlOrder) throws SQLException, SessionUserNotFoundException
 	{
 		if (btpEstabelecimento == null || !Utils.hasValue(btpEstabelecimento.getBtpUsuario().getUsuCodUsuario()))
 			throw new SessionUserNotFoundException();
@@ -51,15 +51,15 @@ public class PrsEstabelecimento extends PrsAbstract
 		sql.append(   cond + " ");
 		sql.append(   order + " ");
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpEstabelecimentoList = new ArrayList<BtpEstabelecimento>();
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpEstabelecimento b = new BtpEstabelecimento();
 
-			b.setEstCodEstabelecimento(this.dbConn.getResultSet().getInt("est_cod_estabelecimento"));
-			b.setEstNomEstabelecimento(this.dbConn.getResultSet().getString("est_nom_estabelecimento"));
+			b.setEstCodEstabelecimento(this.connectionManager.getResultSet().getInt("est_cod_estabelecimento"));
+			b.setEstNomEstabelecimento(this.connectionManager.getResultSet().getString("est_nom_estabelecimento"));
 
 			btpEstabelecimentoList.add(b);
 		}

@@ -14,7 +14,7 @@ public class PrsUpdateItemExtratoByField extends PrsAbstract implements Updateab
 {
 	public PrsUpdateItemExtratoByField(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -51,7 +51,7 @@ public class PrsUpdateItemExtratoByField extends PrsAbstract implements Updateab
 
 		
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

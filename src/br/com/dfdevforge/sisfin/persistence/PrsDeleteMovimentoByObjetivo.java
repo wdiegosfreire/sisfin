@@ -14,7 +14,7 @@ public class PrsDeleteMovimentoByObjetivo extends PrsAbstract implements Updatea
 {
 	public PrsDeleteMovimentoByObjetivo(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -33,7 +33,7 @@ public class PrsDeleteMovimentoByObjetivo extends PrsAbstract implements Updatea
 		sql.append("  obj_cod_objetivo = " + btpMovimento.getBtpObjetivo().getObjCodObjetivo() + " ");
 
 		
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

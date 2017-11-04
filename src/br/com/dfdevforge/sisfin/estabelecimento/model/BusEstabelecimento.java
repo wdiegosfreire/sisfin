@@ -1,4 +1,4 @@
-package br.com.dfdevforge.sisfin.business;
+package br.com.dfdevforge.sisfin.estabelecimento.model;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,10 +7,6 @@ import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.cagece.core.persistence.exception.JpaMappingNotFoundException;
 import br.com.cagece.core.persistence.exception.RequiredFieldNotFoundException;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimento;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoDelete;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoInsert;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimentoUpdate;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
 
 public class BusEstabelecimento

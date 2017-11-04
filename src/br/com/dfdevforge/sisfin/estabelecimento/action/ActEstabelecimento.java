@@ -1,4 +1,4 @@
-package br.com.dfdevforge.sisfin.action;
+package br.com.dfdevforge.sisfin.estabelecimento.action;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,10 +15,11 @@ import org.apache.struts.action.ActionMessages;
 import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.cagece.core.persistence.exception.JpaMappingNotFoundException;
 import br.com.cagece.core.persistence.exception.RequiredFieldNotFoundException;
-import br.com.dfdevforge.sisfin.business.BusEstabelecimento;
+import br.com.dfdevforge.sisfin.action.ActAbstract;
 import br.com.dfdevforge.sisfin.constants.Constants;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
 import br.com.dfdevforge.sisfin.estabelecimento.form.FrmEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.model.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;

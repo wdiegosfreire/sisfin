@@ -15,7 +15,7 @@ public class PrsSelectTemplateRegraParameterized extends PrsAbstract implements 
 {
 	public PrsSelectTemplateRegraParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -66,26 +66,26 @@ public class PrsSelectTemplateRegraParameterized extends PrsAbstract implements 
 		sql.append( cond);
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());		
+		this.connectionManager.statementExecuteQuery(sql.toString());		
 
 		btpTemplateRegraList = new ArrayList<BtpTemplateRegra>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpTemplateRegra btp = new BtpTemplateRegra();
 
-			btp.setTerCodTemplateRegra(this.dbConn.getResultSet().getInt("ter_cod_template_regra"));
-			btp.setTerCodValorAssociado(this.dbConn.getResultSet().getInt("ter_cod_valor_associado"));
+			btp.setTerCodTemplateRegra(this.connectionManager.getResultSet().getInt("ter_cod_template_regra"));
+			btp.setTerCodValorAssociado(this.connectionManager.getResultSet().getInt("ter_cod_valor_associado"));
 
-			btp.getBtpTemplate().setTemCodTemplate(this.dbConn.getResultSet().getInt("tem_cod_template"));
-			btp.getBtpTemplate().setTemTxtNome(this.dbConn.getResultSet().getString("tem_txt_nome"));
+			btp.getBtpTemplate().setTemCodTemplate(this.connectionManager.getResultSet().getInt("tem_cod_template"));
+			btp.getBtpTemplate().setTemTxtNome(this.connectionManager.getResultSet().getString("tem_txt_nome"));
 
-			btp.getBtpRegra().setRegCodRegra(this.dbConn.getResultSet().getInt("reg_cod_regra"));
-			btp.getBtpRegra().setRegTxtDescricao(this.dbConn.getResultSet().getString("reg_txt_descricao"));
-			btp.getBtpRegra().setRegTxtObjetoHtml(this.dbConn.getResultSet().getString("reg_txt_objeto_html"));
-			btp.getBtpRegra().setRegTxtEventoHtml(this.dbConn.getResultSet().getString("reg_txt_evento_html"));
-			btp.getBtpRegra().setRegTxtNomeFuncao(this.dbConn.getResultSet().getString("reg_txt_nome_funcao"));
-			btp.getBtpRegra().setRegFlgValorAssociado(this.dbConn.getResultSet().getBoolean("reg_flg_valor_associado"));
+			btp.getBtpRegra().setRegCodRegra(this.connectionManager.getResultSet().getInt("reg_cod_regra"));
+			btp.getBtpRegra().setRegTxtDescricao(this.connectionManager.getResultSet().getString("reg_txt_descricao"));
+			btp.getBtpRegra().setRegTxtObjetoHtml(this.connectionManager.getResultSet().getString("reg_txt_objeto_html"));
+			btp.getBtpRegra().setRegTxtEventoHtml(this.connectionManager.getResultSet().getString("reg_txt_evento_html"));
+			btp.getBtpRegra().setRegTxtNomeFuncao(this.connectionManager.getResultSet().getString("reg_txt_nome_funcao"));
+			btp.getBtpRegra().setRegFlgValorAssociado(this.connectionManager.getResultSet().getBoolean("reg_flg_valor_associado"));
 
 			btpTemplateRegraList.add(btp);
 		}

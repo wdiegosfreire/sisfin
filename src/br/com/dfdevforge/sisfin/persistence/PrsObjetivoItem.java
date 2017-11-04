@@ -19,7 +19,7 @@ public class PrsObjetivoItem extends PrsAbstract implements Persistence
 
 	public PrsObjetivoItem(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{ 
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -75,7 +75,7 @@ public class PrsObjetivoItem extends PrsAbstract implements Persistence
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into obi_objetivo_item(" + fields + ") values(" + values + ")");
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

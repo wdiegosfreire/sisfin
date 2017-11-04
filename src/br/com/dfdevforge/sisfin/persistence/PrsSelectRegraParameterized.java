@@ -15,7 +15,7 @@ public class PrsSelectRegraParameterized extends PrsAbstract implements Selectab
 {
 	public PrsSelectRegraParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -52,17 +52,17 @@ public class PrsSelectRegraParameterized extends PrsAbstract implements Selectab
 		sql.append( cond);
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpRegraList = new ArrayList<BtpRegra>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpRegra btp = new BtpRegra();
 
-			btp.setRegCodRegra(this.dbConn.getResultSet().getInt("reg_cod_regra"));
-			btp.setRegTxtDescricao(this.dbConn.getResultSet().getString("reg_txt_descricao"));
-			btp.setRegFlgValorAssociado(this.dbConn.getResultSet().getBoolean("reg_flg_valor_associado"));
+			btp.setRegCodRegra(this.connectionManager.getResultSet().getInt("reg_cod_regra"));
+			btp.setRegTxtDescricao(this.connectionManager.getResultSet().getString("reg_txt_descricao"));
+			btp.setRegFlgValorAssociado(this.connectionManager.getResultSet().getBoolean("reg_flg_valor_associado"));
 
 			btpRegraList.add(btp);
 		}

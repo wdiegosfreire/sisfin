@@ -15,7 +15,7 @@ public class PrsSelectBancoParameterized extends PrsAbstract implements Selectab
 {
 	public PrsSelectBancoParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -49,16 +49,16 @@ public class PrsSelectBancoParameterized extends PrsAbstract implements Selectab
 		sql.append( cond);
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpBancoList = new ArrayList<BtpBanco>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpBanco btp = new BtpBanco();
 
-			btp.setBanCodBanco(this.dbConn.getResultSet().getInt("ban_cod_banco"));
-			btp.setBanTxtNome(this.dbConn.getResultSet().getString("ban_txt_nome"));
+			btp.setBanCodBanco(this.connectionManager.getResultSet().getInt("ban_cod_banco"));
+			btp.setBanTxtNome(this.connectionManager.getResultSet().getString("ban_txt_nome"));
 
 			btpBancoList.add(btp);
 		}

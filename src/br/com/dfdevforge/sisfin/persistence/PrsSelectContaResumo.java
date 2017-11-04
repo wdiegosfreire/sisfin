@@ -15,7 +15,7 @@ public class PrsSelectContaResumo extends PrsAbstract implements SelectablePersi
 {
 	public PrsSelectContaResumo(ConnectionManager conn) throws SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 	}
 
 	public List<BtpConta> execute(BtpConta btpConta, Integer sqlOrder) throws SQLException, SessionUserNotFoundException
@@ -63,21 +63,20 @@ public class PrsSelectContaResumo extends PrsAbstract implements SelectablePersi
 		sql.append("group by ");
 		sql.append("  cdes.CON_TXT_DESCRICAO ");
 
-		
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpContaList = new ArrayList<BtpConta>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpConta btp = new BtpConta();
 
-			btp.setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta"));
-			btp.setConTxtDescricao(this.dbConn.getResultSet().getString("con_txt_descricao"));
+			btp.setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta"));
+			btp.setConTxtDescricao(this.connectionManager.getResultSet().getString("con_txt_descricao"));
 
-			BigDecimal anterior = (this.dbConn.getResultSet().getBigDecimal("AUX_VLR_ANTERIOR") != null ? this.dbConn.getResultSet().getBigDecimal("AUX_VLR_ANTERIOR") : new BigDecimal(0));
-			BigDecimal entrada = (this.dbConn.getResultSet().getBigDecimal("AUX_VLR_ENTRADA") != null ? this.dbConn.getResultSet().getBigDecimal("AUX_VLR_ENTRADA") : new BigDecimal(0));
-			BigDecimal saida = (this.dbConn.getResultSet().getBigDecimal("AUX_VLR_SAIDA") != null ? this.dbConn.getResultSet().getBigDecimal("AUX_VLR_SAIDA") : new BigDecimal(0));
+			BigDecimal anterior = (this.connectionManager.getResultSet().getBigDecimal("AUX_VLR_ANTERIOR") != null ? this.connectionManager.getResultSet().getBigDecimal("AUX_VLR_ANTERIOR") : new BigDecimal(0));
+			BigDecimal entrada = (this.connectionManager.getResultSet().getBigDecimal("AUX_VLR_ENTRADA") != null ? this.connectionManager.getResultSet().getBigDecimal("AUX_VLR_ENTRADA") : new BigDecimal(0));
+			BigDecimal saida = (this.connectionManager.getResultSet().getBigDecimal("AUX_VLR_SAIDA") != null ? this.connectionManager.getResultSet().getBigDecimal("AUX_VLR_SAIDA") : new BigDecimal(0));
 			BigDecimal economia = entrada.subtract(saida);
 			BigDecimal acumulado = anterior.add(entrada).subtract(saida);
 
