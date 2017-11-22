@@ -59,7 +59,6 @@ public class ActLogin extends ActAbstract
 			else
 			{
 				actMsg.add("label.attribute.renCodRendimento", new ActionMessage(""));
-
 			}
 
 			conn.commit();
