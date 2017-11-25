@@ -94,15 +94,12 @@
 		</init-param>
 
 		<load-on-startup>2</load-on-startup>
-
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>dwr-invoker</servlet-name>
 		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>
-
-
 
 	<!-- The Usual Welcome File List -->
 	<welcome-file-list>

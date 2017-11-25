@@ -22,7 +22,7 @@ public interface ActionControler
 	public boolean actShowMainPage(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusinessControler bc) throws Exception;
 
 	/**
-	 * Chama o métoro <code>setAttribute</code> do objeto <code>request</code> passando um objeto <code>List</code> e o
+	 * Chama o método <code>setAttribute</code> do objeto <code>request</code> passando um objeto <code>List</code> e o
 	 * nome com o qual será reconhecido.
 	 * 
 	 * @param request
