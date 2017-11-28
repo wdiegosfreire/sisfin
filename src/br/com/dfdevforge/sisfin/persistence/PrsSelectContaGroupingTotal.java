@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.behavior.SelectablePersistence;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -14,7 +14,7 @@ public class PrsSelectContaGroupingTotal extends PrsAbstract implements Selectab
 {
 	public PrsSelectContaGroupingTotal(ConnectionManager conn) throws SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 	}
 
 	public List<BtpConta> execute(BtpConta btpConta, Integer sqlOrder) throws SQLException, SessionUserNotFoundException
@@ -64,19 +64,19 @@ public class PrsSelectContaGroupingTotal extends PrsAbstract implements Selectab
 		sql.append( order);
 
 		
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpContaList = new ArrayList<BtpConta>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpConta btp = new BtpConta();
 
-			btp.setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta"));
-			btp.setConTxtDescricao(this.dbConn.getResultSet().getString("con_txt_descricao"));
-			btp.setConNumNivel(this.dbConn.getResultSet().getString("con_num_nivel"));
-			btp.getMap().put("AUX_VLR_TOTAL", this.dbConn.getResultSet().getString("aux_vlr_total"));
-			btp.getBtpUsuario().setUsuCodUsuario(this.dbConn.getResultSet().getInt("usu_cod_usuario"));
+			btp.setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta"));
+			btp.setConTxtDescricao(this.connectionManager.getResultSet().getString("con_txt_descricao"));
+			btp.setConNumNivel(this.connectionManager.getResultSet().getString("con_num_nivel"));
+			btp.getMap().put("AUX_VLR_TOTAL", this.connectionManager.getResultSet().getString("aux_vlr_total"));
+			btp.getBtpUsuario().setUsuCodUsuario(this.connectionManager.getResultSet().getInt("usu_cod_usuario"));
 
 			btpContaList.add(btp);
 		}

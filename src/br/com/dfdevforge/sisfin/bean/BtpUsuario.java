@@ -1,7 +1,12 @@
 package br.com.dfdevforge.sisfin.bean;
 
-import br.com.cagece.core.bean.AbstractBean;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import br.com.cagece.core.bean.api.AbstractBean;
+
+@Table(name="usu_usuario")
 public class BtpUsuario extends AbstractBean
 {
 	private static final long serialVersionUID = 8682318021712984798L;
@@ -9,45 +14,32 @@ public class BtpUsuario extends AbstractBean
 	/*
 	 *  Atributos da entidade
 	 */
+	@Id
+	@Column(name="usu_cod_usuario")
 	private Integer usuCodUsuario;
-	private String usuTxtNome;
-	private String usuTxtSenha;
-	private String usuTxtEmail;
-
-	/*
-	 *  Atributos de relacionamento 1
-	 */
-
-	/*
-	 *  Atributos de relacionamento N
-	 */
-
-	/*
-	 *  Métodos de acesso dos atributos da entidade
-	 */
 	public Integer getUsuCodUsuario() {return usuCodUsuario;}
 	public void setUsuCodUsuario(Integer usuCodUsuario) {this.usuCodUsuario = usuCodUsuario;}
 
+	@Column(name="usu_txt_nome")
+	private String usuTxtNome;
 	public String getUsuTxtNome() {return usuTxtNome;}
 	public void setUsuTxtNome(String usuTxtNome) {this.usuTxtNome = usuTxtNome;}
 
+	@Column(name="usu_txt_senha")
+	private String usuTxtSenha;
 	public String getUsuTxtSenha() {return usuTxtSenha;}
 	public void setUsuTxtSenha(String usuTxtSenha) {this.usuTxtSenha = usuTxtSenha;}
 
+	@Column(name="usu_txt_email")
+	private String usuTxtEmail;
 	public String getUsuTxtEmail() {return usuTxtEmail;}
 	public void setUsuTxtEmail(String usuTxtEmail) {this.usuTxtEmail = usuTxtEmail;}
 
 	/*
-	 *  Métodos de acesso dos atributos de relacionamento 1
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
 	 */
-
-	/*
-	 *  Métodos de acesso dos atributos de relacionamento N
-	 */
-
-	/*
-	 * Métodos sobrescritos
-	 */
+	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
@@ -57,30 +49,26 @@ public class BtpUsuario extends AbstractBean
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
 			return true;
-
 		if (obj == null)
 			return false;
-
 		if (!(obj instanceof BtpUsuario))
 			return false;
 
 		BtpUsuario other = (BtpUsuario) obj;
-
-		if (usuCodUsuario == null)
-		{
-			if (other.usuCodUsuario != null)
+		if (usuCodUsuario == null || other.usuCodUsuario == null)
 				return false;
-		}
-		else if (usuCodUsuario == 0 || !usuCodUsuario.equals(other.usuCodUsuario))
-		{
+		else if (!usuCodUsuario.equals(other.usuCodUsuario))
 			return false;
-		}
 
 		return true;
 	}
-
 }

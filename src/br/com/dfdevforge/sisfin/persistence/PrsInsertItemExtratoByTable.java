@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.persistence;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpItemExtrato;
 import br.com.dfdevforge.sisfin.behavior.UpdateablePersistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
@@ -16,7 +16,7 @@ public class PrsInsertItemExtratoByTable extends PrsAbstract implements Updateab
 {
 	public PrsInsertItemExtratoByTable(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -45,19 +45,19 @@ public class PrsInsertItemExtratoByTable extends PrsAbstract implements Updateab
 		sql.append(")");
 		sql.append("values(?, ?, ?, ?, ?, ?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
 		to.setIteCodItemExtrato(this.getPrimaryKey("ite_item_extrato", "ite_cod_item_extrato"));
 
-		this.dbConn.preparedStatementSetParameter(1, to.getIteCodItemExtrato());
-		this.dbConn.preparedStatementSetParameter(2, to.getIteDatMovimento());
-		this.dbConn.preparedStatementSetParameter(3, to.getIteTxtDescricao());
-		this.dbConn.preparedStatementSetParameter(4, to.getIteNumDocumento());
-		this.dbConn.preparedStatementSetParameter(5, to.getIteTxtTipo());
-		this.dbConn.preparedStatementSetParameter(6, to.getIteVlrMovimento());
-		this.dbConn.preparedStatementSetParameter(7, to.getBtpExtrato().getExtCodExtrato());
+		this.connectionManager.preparedStatementSetParameter(1, to.getIteCodItemExtrato());
+		this.connectionManager.preparedStatementSetParameter(2, to.getIteDatMovimento());
+		this.connectionManager.preparedStatementSetParameter(3, to.getIteTxtDescricao());
+		this.connectionManager.preparedStatementSetParameter(4, to.getIteNumDocumento());
+		this.connectionManager.preparedStatementSetParameter(5, to.getIteTxtTipo());
+		this.connectionManager.preparedStatementSetParameter(6, to.getIteVlrMovimento());
+		this.connectionManager.preparedStatementSetParameter(7, to.getBtpExtrato().getExtCodExtrato());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}

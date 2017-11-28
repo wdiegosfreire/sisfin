@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public class BtpMovimento extends AbstractBean
 {

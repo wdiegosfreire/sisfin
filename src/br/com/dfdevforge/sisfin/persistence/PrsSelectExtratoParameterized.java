@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpBanco;
 import br.com.dfdevforge.sisfin.bean.BtpExtrato;
 import br.com.dfdevforge.sisfin.bean.BtpItemExtrato;
@@ -18,7 +18,7 @@ public class PrsSelectExtratoParameterized extends PrsAbstract implements Select
 {
 	public PrsSelectExtratoParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -83,47 +83,47 @@ public class PrsSelectExtratoParameterized extends PrsAbstract implements Select
 		sql.append( order);
 
 		
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		List<BtpExtrato> btpExtratoList = new ArrayList<BtpExtrato>();
 
 		BtpExtrato btpExtrato = null;
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			btpExtrato = new BtpExtrato();
-			btpExtrato.setExtCodExtrato(this.dbConn.getResultSet().getInt("ext_cod_extrato"));
+			btpExtrato.setExtCodExtrato(this.connectionManager.getResultSet().getInt("ext_cod_extrato"));
 
 			if (!btpExtratoList.contains(btpExtrato))
 			{
-				btpExtrato.setExtDatMes(this.dbConn.getResultSet().getInt("ext_dat_mes"));
-				btpExtrato.setExtDatAno(this.dbConn.getResultSet().getInt("ext_dat_ano"));
-				btpExtrato.setExtVlrSaldoInicial(this.dbConn.getResultSet().getBigDecimal("ext_vlr_saldo_inicial"));
-				btpExtrato.setExtVlrSaldoFinal(this.dbConn.getResultSet().getBigDecimal("ext_vlr_saldo_final"));
-				btpExtrato.getMap().put("extQtdPendente", this.dbConn.getResultSet().getString("ext_qtd_pendente"));
+				btpExtrato.setExtDatMes(this.connectionManager.getResultSet().getInt("ext_dat_mes"));
+				btpExtrato.setExtDatAno(this.connectionManager.getResultSet().getInt("ext_dat_ano"));
+				btpExtrato.setExtVlrSaldoInicial(this.connectionManager.getResultSet().getBigDecimal("ext_vlr_saldo_inicial"));
+				btpExtrato.setExtVlrSaldoFinal(this.connectionManager.getResultSet().getBigDecimal("ext_vlr_saldo_final"));
+				btpExtrato.getMap().put("extQtdPendente", this.connectionManager.getResultSet().getString("ext_qtd_pendente"));
 
 				btpExtrato.setBtpBanco(new BtpBanco());
-				btpExtrato.getBtpBanco().setBanCodBanco(this.dbConn.getResultSet().getInt("ban_cod_banco"));
-				btpExtrato.getBtpBanco().setBanTxtNome(this.dbConn.getResultSet().getString("ban_txt_nome"));
+				btpExtrato.getBtpBanco().setBanCodBanco(this.connectionManager.getResultSet().getInt("ban_cod_banco"));
+				btpExtrato.getBtpBanco().setBanTxtNome(this.connectionManager.getResultSet().getString("ban_txt_nome"));
 
 				btpExtrato.setBtpTipoExtrato(new BtpTipoExtrato());
-				btpExtrato.getBtpTipoExtrato().setTieCodTipoExtrato(this.dbConn.getResultSet().getInt("tie_cod_tipo_extrato"));
-				btpExtrato.getBtpTipoExtrato().setTieTxtNome(this.dbConn.getResultSet().getString("tie_txt_nome"));
+				btpExtrato.getBtpTipoExtrato().setTieCodTipoExtrato(this.connectionManager.getResultSet().getInt("tie_cod_tipo_extrato"));
+				btpExtrato.getBtpTipoExtrato().setTieTxtNome(this.connectionManager.getResultSet().getString("tie_txt_nome"));
 
 				btpExtratoList.add(btpExtrato);
 			}
 
 			BtpItemExtrato btpItemExtrato = new BtpItemExtrato();
-			btpItemExtrato.setIteCodItemExtrato(this.dbConn.getResultSet().getInt("ite_cod_item_extrato"));
-			btpItemExtrato.setIteDatMovimento(this.dbConn.getResultSet().getDate("ite_dat_movimento"));
-			btpItemExtrato.setIteNumDocumento(this.dbConn.getResultSet().getString("ite_num_documento"));
-			btpItemExtrato.setIteTxtDescricao(this.dbConn.getResultSet().getString("ite_txt_descricao"));
-			btpItemExtrato.setIteTxtTipo(this.dbConn.getResultSet().getString("ite_txt_tipo"));
-			btpItemExtrato.setIteVlrMovimento(this.dbConn.getResultSet().getBigDecimal("ite_vlr_movimento"));
-			btpItemExtrato.setIteFlgExportado(this.dbConn.getResultSet().getBoolean("ite_flg_exportado"));
+			btpItemExtrato.setIteCodItemExtrato(this.connectionManager.getResultSet().getInt("ite_cod_item_extrato"));
+			btpItemExtrato.setIteDatMovimento(this.connectionManager.getResultSet().getDate("ite_dat_movimento"));
+			btpItemExtrato.setIteNumDocumento(this.connectionManager.getResultSet().getString("ite_num_documento"));
+			btpItemExtrato.setIteTxtDescricao(this.connectionManager.getResultSet().getString("ite_txt_descricao"));
+			btpItemExtrato.setIteTxtTipo(this.connectionManager.getResultSet().getString("ite_txt_tipo"));
+			btpItemExtrato.setIteVlrMovimento(this.connectionManager.getResultSet().getBigDecimal("ite_vlr_movimento"));
+			btpItemExtrato.setIteFlgExportado(this.connectionManager.getResultSet().getBoolean("ite_flg_exportado"));
 
-			btpItemExtrato.getMap().put("auxNumOccurrenceValor", this.dbConn.getResultSet().getString("aux_num_occurrence_valor"));
-			btpItemExtrato.getMap().put("auxNumOccurrenceDataValor", this.dbConn.getResultSet().getString("aux_num_occurrence_data_valor"));
+			btpItemExtrato.getMap().put("auxNumOccurrenceValor", this.connectionManager.getResultSet().getString("aux_num_occurrence_valor"));
+			btpItemExtrato.getMap().put("auxNumOccurrenceDataValor", this.connectionManager.getResultSet().getString("aux_num_occurrence_data_valor"));
 
 			if (btpExtratoList.get(btpExtratoList.indexOf(btpExtrato)).getBtpItemExtratoList() == null)
 				btpExtratoList.get(btpExtratoList.indexOf(btpExtrato)).setBtpItemExtratoList(new ArrayList<BtpItemExtrato>());

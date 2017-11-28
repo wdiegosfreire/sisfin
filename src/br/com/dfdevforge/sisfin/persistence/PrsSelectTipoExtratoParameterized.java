@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpTipoExtrato;
 import br.com.dfdevforge.sisfin.behavior.SelectablePersistence;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -15,7 +15,7 @@ public class PrsSelectTipoExtratoParameterized extends PrsAbstract implements Se
 {
 	public PrsSelectTipoExtratoParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -50,16 +50,16 @@ public class PrsSelectTipoExtratoParameterized extends PrsAbstract implements Se
 		sql.append( order);
 
 		
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpTipoExtratoList = new ArrayList<BtpTipoExtrato>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpTipoExtrato btp = new BtpTipoExtrato();
 
-			btp.setTieCodTipoExtrato(this.dbConn.getResultSet().getInt("tie_cod_tipo_extrato"));
-			btp.setTieTxtNome(this.dbConn.getResultSet().getString("tie_txt_nome"));
+			btp.setTieCodTipoExtrato(this.connectionManager.getResultSet().getInt("tie_cod_tipo_extrato"));
+			btp.setTieTxtNome(this.connectionManager.getResultSet().getString("tie_txt_nome"));
 
 			btpTipoExtratoList.add(btp);
 		}

@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
+import br.com.cagece.core.bean.api.AbstractBean;
 
 public class BtpConta extends AbstractBean
 {

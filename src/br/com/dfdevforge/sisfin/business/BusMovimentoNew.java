@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpCompetencia;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivo;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.model.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
 import br.com.dfdevforge.sisfin.persistence.PrsObjetivo;
 import br.com.dfdevforge.sisfin.persistence.PrsObjetivoSelectParameterized;
@@ -86,8 +86,8 @@ public class BusMovimentoNew
 		BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 		btpEstabelecimento.setBtpUsuario(btpObjetivo.getBtpUsuario());
 
-		PrsEstabelecimento prsEstabelecimento = new PrsEstabelecimento(dbConn);
-		mapBeanList.put("btpEstabelecimentoList", prsEstabelecimento.select(btpEstabelecimento, 2));	
+		BusEstabelecimento busEstabelecimento = new BusEstabelecimento(dbConn);
+		mapBeanList.put("btpEstabelecimentoList", busEstabelecimento.consultar(btpEstabelecimento, 2));	
 
 		return mapBeanList;
 	}

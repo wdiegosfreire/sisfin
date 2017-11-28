@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpTemplate;
 import br.com.dfdevforge.sisfin.behavior.SelectablePersistence;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -15,7 +15,7 @@ public class PrsSelectTemplateParameterized extends PrsAbstract implements Selec
 {
 	public PrsSelectTemplateParameterized(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -55,17 +55,17 @@ public class PrsSelectTemplateParameterized extends PrsAbstract implements Selec
 		sql.append( cond);
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpTemplateList = new ArrayList<BtpTemplate>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpTemplate btp = new BtpTemplate();
 
-			btp.setTemCodTemplate(this.dbConn.getResultSet().getInt("tem_cod_template"));
-			btp.setTemTxtNome(this.dbConn.getResultSet().getString("tem_txt_nome"));
-			btp.getBtpUsuario().setUsuCodUsuario(this.dbConn.getResultSet().getInt("usu_cod_usuario"));
+			btp.setTemCodTemplate(this.connectionManager.getResultSet().getInt("tem_cod_template"));
+			btp.setTemTxtNome(this.connectionManager.getResultSet().getString("tem_txt_nome"));
+			btp.getBtpUsuario().setUsuCodUsuario(this.connectionManager.getResultSet().getInt("usu_cod_usuario"));
 
 			btpTemplateList.add(btp);
 		}

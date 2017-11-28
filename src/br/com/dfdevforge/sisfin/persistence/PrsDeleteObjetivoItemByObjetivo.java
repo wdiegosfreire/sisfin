@@ -2,7 +2,7 @@ package br.com.dfdevforge.sisfin.persistence;
 
 import java.sql.SQLException;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivoItem;
 import br.com.dfdevforge.sisfin.behavior.UpdateablePersistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
@@ -14,7 +14,7 @@ public class PrsDeleteObjetivoItemByObjetivo extends PrsAbstract implements Upda
 {
 	public PrsDeleteObjetivoItemByObjetivo(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -30,7 +30,7 @@ public class PrsDeleteObjetivoItemByObjetivo extends PrsAbstract implements Upda
 		sql.append("delete from obi_objetivo_item where obj_cod_objetivo = " + btpObjetivoItem.getBtpObjetivo().getObjCodObjetivo());
 
 		
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

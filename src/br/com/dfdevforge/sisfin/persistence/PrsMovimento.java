@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;
 import br.com.dfdevforge.sisfin.behavior.Persistence;
 import br.com.dfdevforge.sisfin.constants.Constants;
@@ -21,7 +21,7 @@ public class PrsMovimento extends PrsAbstract implements Persistence
 
 	public PrsMovimento(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{ 
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -80,21 +80,21 @@ public class PrsMovimento extends PrsAbstract implements Persistence
 		sql.append(")");
 		sql.append("values(?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
 		Constants.errorLog = "";
 
-		this.dbConn.preparedStatementSetParameter(1, dateToTymestampConverter(btpMovimento.getMovDatRegistro()));
-		this.dbConn.preparedStatementSetParameter(2, dateToTymestampConverter(btpMovimento.getMovDatVencimento()));
-		this.dbConn.preparedStatementSetParameter(3, dateToTymestampConverter(btpMovimento.getMovDatPagamento()));
-		this.dbConn.preparedStatementSetParameter(4, btpMovimento.getMovVlrMovimentado());
-		this.dbConn.preparedStatementSetParameter(5, btpMovimento.getMovNumParcela());
-		this.dbConn.preparedStatementSetParameter(6, btpMovimento.getBtpObjetivo().getObjCodObjetivo());
-		this.dbConn.preparedStatementSetParameter(7, btpMovimento.getBtpFormaPagamento().getFopCodFormaPagamento());
-		this.dbConn.preparedStatementSetParameter(8, btpMovimento.getBtpContaOrigem().getConCodConta());
-		this.dbConn.preparedStatementSetParameter(9, btpMovimento.getBtpContaDestino().getConCodConta());
+		this.connectionManager.preparedStatementSetParameter(1, dateToTymestampConverter(btpMovimento.getMovDatRegistro()));
+		this.connectionManager.preparedStatementSetParameter(2, dateToTymestampConverter(btpMovimento.getMovDatVencimento()));
+		this.connectionManager.preparedStatementSetParameter(3, dateToTymestampConverter(btpMovimento.getMovDatPagamento()));
+		this.connectionManager.preparedStatementSetParameter(4, btpMovimento.getMovVlrMovimentado());
+		this.connectionManager.preparedStatementSetParameter(5, btpMovimento.getMovNumParcela());
+		this.connectionManager.preparedStatementSetParameter(6, btpMovimento.getBtpObjetivo().getObjCodObjetivo());
+		this.connectionManager.preparedStatementSetParameter(7, btpMovimento.getBtpFormaPagamento().getFopCodFormaPagamento());
+		this.connectionManager.preparedStatementSetParameter(8, btpMovimento.getBtpContaOrigem().getConCodConta());
+		this.connectionManager.preparedStatementSetParameter(9, btpMovimento.getBtpContaDestino().getConCodConta());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}
@@ -146,7 +146,7 @@ public class PrsMovimento extends PrsAbstract implements Persistence
 
 		
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

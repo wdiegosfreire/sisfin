@@ -7,6 +7,10 @@ $(document).ready(function()
 	$("[data-name='btnNavmenu']").click(function() {
 		jvsCabecalhoMain.btnNavmenuClick();
 	});
+
+	$("[data-name='btnUsermenu']").click(function() {
+		jvsCabecalhoMain.btnUsermenuClick();
+	});
 });
 
 var jvsCabecalhoMain = new JvsCabecalhoMain();
@@ -24,6 +28,12 @@ function JvsCabecalhoMain()
 	this.btnNavmenuClick = function()
 	{
 		$("#puimenubar").toggle("slow");
+	};
+
+	this.btnUsermenuClick = function()
+	{
+		message.addInfo("Informação", "Funcionalidade em desenvolvimento");
+		message.show();
 	};
 
 	/* +----------------------------------------------------------------------+

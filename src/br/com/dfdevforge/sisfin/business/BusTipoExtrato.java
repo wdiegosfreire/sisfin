@@ -3,8 +3,8 @@ package br.com.dfdevforge.sisfin.business;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpTipoExtrato;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;

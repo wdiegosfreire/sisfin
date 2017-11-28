@@ -3,8 +3,8 @@ package br.com.dfdevforge.sisfin.persistence;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivoItem;
 import br.com.dfdevforge.sisfin.behavior.Persistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
@@ -19,7 +19,7 @@ public class PrsObjetivoItem extends PrsAbstract implements Persistence
 
 	public PrsObjetivoItem(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{ 
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -75,7 +75,7 @@ public class PrsObjetivoItem extends PrsAbstract implements Persistence
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into obi_objetivo_item(" + fields + ") values(" + values + ")");
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

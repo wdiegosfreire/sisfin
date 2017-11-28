@@ -2,10 +2,9 @@ package br.com.dfdevforge.sisfin.dwr;
 
 import java.util.ArrayList;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpCompetencia;
 import br.com.dfdevforge.sisfin.business.BusResumo;
-import br.com.dfdevforge.sisfin.constants.Constants;
 import br.com.dfdevforge.sisfin.constants.EnumComandoNavegacao;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 

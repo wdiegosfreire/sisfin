@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
 import br.com.dfdevforge.sisfin.behavior.Persistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
@@ -21,7 +21,7 @@ public class PrsFormaPagamento extends PrsAbstract implements Persistence
 
 	public PrsFormaPagamento(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -57,15 +57,15 @@ public class PrsFormaPagamento extends PrsAbstract implements Persistence
 		sql.append(   cond + " ");
 		sql.append(   order + " ");
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpFormaPagamentoList = new ArrayList<BtpFormaPagamento>();
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpFormaPagamento b = new BtpFormaPagamento();
 
-			b.setFopCodFormaPagamento(this.dbConn.getResultSet().getInt("fop_cod_forma_pagamento"));
-			b.setFopNomFormaPagamento(this.dbConn.getResultSet().getString("fop_nom_forma_pagamento"));
+			b.setFopCodFormaPagamento(this.connectionManager.getResultSet().getInt("fop_cod_forma_pagamento"));
+			b.setFopNomFormaPagamento(this.connectionManager.getResultSet().getString("fop_nom_forma_pagamento"));
 
 			btpFormaPagamentoList.add(b);
 		}
@@ -101,7 +101,7 @@ public class PrsFormaPagamento extends PrsAbstract implements Persistence
 		sql.append("insert into fop_forma_pagamento(" + fields + ") values(" + values + ")");
 
 		
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}
@@ -128,7 +128,7 @@ public class PrsFormaPagamento extends PrsAbstract implements Persistence
 		sql.append("  fop_cod_forma_pagamento = " + btpFormaPagamento.getFopCodFormaPagamento());
 		sql.append("  and usu_cod_usuario = " + btpFormaPagamento.getBtpUsuario().getUsuCodUsuario() + " ");
 
-		this.dbConn.statementExecuteUpdate(sql.toString());
+		this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return btpFormaPagamento;
 	}
@@ -150,7 +150,7 @@ public class PrsFormaPagamento extends PrsAbstract implements Persistence
 		sql.append("  fop_cod_forma_pagamento = " + btpFormaPagamento.getFopCodFormaPagamento() + " ");
 		sql.append("  and usu_cod_usuario = " + btpFormaPagamento.getBtpUsuario().getUsuCodUsuario() + " ");
 
-		this.dbConn.statementExecuteUpdate(sql.toString());
+		this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return btpFormaPagamento;
 	}

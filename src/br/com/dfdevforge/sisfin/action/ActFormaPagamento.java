@@ -13,7 +13,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.ftp.exception.FtpLogoutFailedException;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
 import br.com.dfdevforge.sisfin.behavior.BusinessControler;
 import br.com.dfdevforge.sisfin.business.BusFormaPagamento;
@@ -26,7 +27,7 @@ import br.com.dfdevforge.sisfin.form.FrmFormaPagamento;
 
 public class ActFormaPagamento extends ActAbstract
 {
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, FtpLogoutFailedException
 	{
 		ActionMessages actMsg = new ActionMessages();
 		BusFormaPagamento ngc = new BusFormaPagamento();
@@ -74,10 +75,6 @@ public class ActFormaPagamento extends ActAbstract
 			e.printStackTrace();
 			actMsg.add(e.getClass().getSimpleName(), new ActionMessage(e.getClass().getName()));
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (TimezoneValueException e)
 		{
 			conn.rollback();
@@ -101,18 +98,6 @@ public class ActFormaPagamento extends ActAbstract
 			conn.rollback();
 			e.printStackTrace();
 			actMsg.add(e.getExceptionName(), new ActionMessage(e.getExceptionKey()));
-		}
-		catch (InstantiationException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
 		}
 		catch (Exception e)
 		{

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpFormaPagamento;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;
@@ -24,8 +24,7 @@ import br.com.dfdevforge.sisfin.business.BusRegra;
 import br.com.dfdevforge.sisfin.business.BusTemplate;
 import br.com.dfdevforge.sisfin.constants.EnumComandoNavegacao;
 import br.com.dfdevforge.sisfin.estabelecimento.bean.BtpEstabelecimento;
-import br.com.dfdevforge.sisfin.estabelecimento.business.BusEstabelecimento;
-import br.com.dfdevforge.sisfin.estabelecimento.persistence.PrsEstabelecimento;
+import br.com.dfdevforge.sisfin.estabelecimento.model.BusEstabelecimento;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
 import br.com.dfdevforge.sisfin.exception.RequiredColumnNotFoundException;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -106,37 +105,30 @@ public class DwrObjetivo extends DwrAbstract
 
 	public List<BtpEstabelecimento> getBtpEstabelecimentoList() throws Exception
 	{
-		ConnectionManager dbConn = null;
+		ConnectionManager connectionManager = null;
 		List<BtpEstabelecimento> btpEstabelecimentoList = null;
 		BtpUsuario btpUsuario = DWRUtil.getSessionUser();
 
 		try
 		{
-			dbConn = new ConnectionManager();
+			connectionManager = new ConnectionManager();
 
 			BtpEstabelecimento btpEstabelecimento = new BtpEstabelecimento();
 			btpEstabelecimento.setBtpUsuario(btpUsuario);
 
-			BusEstabelecimento b = new BusEstabelecimento(dbConn);
-			b.consultar(btpEstabelecimento, 1);
+			BusEstabelecimento busEstabelecimento = new BusEstabelecimento(connectionManager);
+			btpEstabelecimentoList = busEstabelecimento.consultar(null, 1);
 
-			PrsEstabelecimento prsEstabelecimento = new PrsEstabelecimento(dbConn);
-			btpEstabelecimentoList = prsEstabelecimento.select(null, 1);
-
-			dbConn.commit();
+			connectionManager.commit();
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			dbConn.rollback();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
+			connectionManager.rollback();
 		}
 		finally
 		{
-			ConnectionManager.closeConnection(dbConn);
+			ConnectionManager.closeConnection(connectionManager);
 		}
 
 		return btpEstabelecimentoList;
@@ -165,10 +157,6 @@ public class DwrObjetivo extends DwrAbstract
 		{
 			e.printStackTrace();
 			dbConn.rollback();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
 		}
 		finally
 		{
@@ -200,10 +188,6 @@ public class DwrObjetivo extends DwrAbstract
 		{
 			e.printStackTrace();
 			dbConn.rollback();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
 		}
 		finally
 		{
@@ -311,10 +295,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbConn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (RequiredColumnNotFoundException e)
 		{
 			e.printStackTrace();
@@ -409,10 +389,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbConn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (NumberFormatException e)
 		{
 			e.printStackTrace();
@@ -458,10 +434,6 @@ public class DwrObjetivo extends DwrAbstract
 			e.printStackTrace();
 			dbconn.rollback();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (RequiredColumnNotFoundException e)
 		{
 			e.printStackTrace();
@@ -501,10 +473,6 @@ public class DwrObjetivo extends DwrAbstract
 		{
 			e.printStackTrace();
 			dbConn.rollback();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
 		}
 		finally
 		{

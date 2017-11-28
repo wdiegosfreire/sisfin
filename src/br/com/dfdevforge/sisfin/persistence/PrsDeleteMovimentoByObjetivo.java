@@ -2,7 +2,7 @@ package br.com.dfdevforge.sisfin.persistence;
 
 import java.sql.SQLException;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;
 import br.com.dfdevforge.sisfin.behavior.UpdateablePersistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
@@ -14,7 +14,7 @@ public class PrsDeleteMovimentoByObjetivo extends PrsAbstract implements Updatea
 {
 	public PrsDeleteMovimentoByObjetivo(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -33,7 +33,7 @@ public class PrsDeleteMovimentoByObjetivo extends PrsAbstract implements Updatea
 		sql.append("  obj_cod_objetivo = " + btpMovimento.getBtpObjetivo().getObjCodObjetivo() + " ");
 
 		
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

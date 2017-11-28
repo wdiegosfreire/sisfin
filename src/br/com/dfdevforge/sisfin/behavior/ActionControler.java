@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionForm;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
 import br.com.dfdevforge.sisfin.exception.TimezoneValueException;
 
@@ -22,7 +22,7 @@ public interface ActionControler
 	public boolean actShowMainPage(HttpServletRequest request, ActionForm actionForm, ConnectionManager conn, BusinessControler bc) throws Exception;
 
 	/**
-	 * Chama o métoro <code>setAttribute</code> do objeto <code>request</code> passando um objeto <code>List</code> e o
+	 * Chama o método <code>setAttribute</code> do objeto <code>request</code> passando um objeto <code>List</code> e o
 	 * nome com o qual será reconhecido.
 	 * 
 	 * @param request

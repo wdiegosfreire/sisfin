@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivo;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivoItem;
@@ -15,7 +15,7 @@ public class PrsObjetivoSelectParameterized extends PrsAbstract implements Selec
 {
 	public PrsObjetivoSelectParameterized(ConnectionManager dbConn) throws SQLException
 	{
-		this.dbConn = dbConn;
+		this.connectionManager = dbConn;
 	}
 
 	public List<BtpObjetivo> execute(BtpObjetivo to, Integer sqlOrder) throws SQLException
@@ -79,7 +79,7 @@ public class PrsObjetivoSelectParameterized extends PrsAbstract implements Selec
 		sql.append( cond);
 		sql.append( order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpObjetivoList = new ArrayList<BtpObjetivo>();
 
@@ -95,65 +95,65 @@ public class PrsObjetivoSelectParameterized extends PrsAbstract implements Selec
 		int movCodMovimento = 0;
 		String movCodList = "";
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
-			if (objCodObjetivo != this.dbConn.getResultSet().getInt("obj_cod_objetivo") && !objCodList.contains(this.dbConn.getResultSet().getString("obj_cod_objetivo")))
+			if (objCodObjetivo != this.connectionManager.getResultSet().getInt("obj_cod_objetivo") && !objCodList.contains(this.connectionManager.getResultSet().getString("obj_cod_objetivo")))
 			{
 				btpObjetivo = new BtpObjetivo();
 
-				btpObjetivo.setObjCodObjetivo(this.dbConn.getResultSet().getInt("obj_cod_objetivo"));
-				btpObjetivo.setObjTxtDescricao(this.dbConn.getResultSet().getString("obj_txt_descricao"));
+				btpObjetivo.setObjCodObjetivo(this.connectionManager.getResultSet().getInt("obj_cod_objetivo"));
+				btpObjetivo.setObjTxtDescricao(this.connectionManager.getResultSet().getString("obj_txt_descricao"));
 
-				btpObjetivo.getBtpEstabelecimento().setEstCodEstabelecimento(this.dbConn.getResultSet().getInt("est_cod_estabelecimento"));
-				btpObjetivo.getBtpEstabelecimento().setEstNomEstabelecimento(this.dbConn.getResultSet().getString("est_nom_estabelecimento"));
+				btpObjetivo.getBtpEstabelecimento().setEstCodEstabelecimento(this.connectionManager.getResultSet().getInt("est_cod_estabelecimento"));
+				btpObjetivo.getBtpEstabelecimento().setEstNomEstabelecimento(this.connectionManager.getResultSet().getString("est_nom_estabelecimento"));
 
 				btpObjetivoList.add(btpObjetivo);
 
-				objCodObjetivo = this.dbConn.getResultSet().getInt("obj_cod_objetivo");
-				objCodList += this.dbConn.getResultSet().getString("obj_cod_objetivo");
+				objCodObjetivo = this.connectionManager.getResultSet().getInt("obj_cod_objetivo");
+				objCodList += this.connectionManager.getResultSet().getString("obj_cod_objetivo");
 			}
 
-			if (obiCodObjetivoItem != this.dbConn.getResultSet().getInt("obi_cod_objetivo_item") && !obiCodList.contains(this.dbConn.getResultSet().getString("obi_cod_objetivo_item")))
+			if (obiCodObjetivoItem != this.connectionManager.getResultSet().getInt("obi_cod_objetivo_item") && !obiCodList.contains(this.connectionManager.getResultSet().getString("obi_cod_objetivo_item")))
 			{
 				btpObjetivoItem = new BtpObjetivoItem();
 
-				btpObjetivoItem.setObiCodObjetivoItem(this.dbConn.getResultSet().getInt("obi_cod_objetivo_item"));
-				btpObjetivoItem.setObiNumItem(this.dbConn.getResultSet().getInt("obi_num_item"));
-				btpObjetivoItem.setObiTxtDescricao(this.dbConn.getResultSet().getString("obi_txt_descricao"));
-				btpObjetivoItem.setObiNumQuantidade(this.dbConn.getResultSet().getBigDecimal("obi_num_quantidade"));
-				btpObjetivoItem.setObiVlrUnidade(this.dbConn.getResultSet().getBigDecimal("obi_vlr_unidade"));
+				btpObjetivoItem.setObiCodObjetivoItem(this.connectionManager.getResultSet().getInt("obi_cod_objetivo_item"));
+				btpObjetivoItem.setObiNumItem(this.connectionManager.getResultSet().getInt("obi_num_item"));
+				btpObjetivoItem.setObiTxtDescricao(this.connectionManager.getResultSet().getString("obi_txt_descricao"));
+				btpObjetivoItem.setObiNumQuantidade(this.connectionManager.getResultSet().getBigDecimal("obi_num_quantidade"));
+				btpObjetivoItem.setObiVlrUnidade(this.connectionManager.getResultSet().getBigDecimal("obi_vlr_unidade"));
 
 				btpObjetivo.getBtpObjetivoItemList().add(btpObjetivoItem);
 
-				obiCodObjetivoItem = this.dbConn.getResultSet().getInt("obi_cod_objetivo_item");
-				obiCodList += this.dbConn.getResultSet().getString("obi_cod_objetivo_item") + ";";
+				obiCodObjetivoItem = this.connectionManager.getResultSet().getInt("obi_cod_objetivo_item");
+				obiCodList += this.connectionManager.getResultSet().getString("obi_cod_objetivo_item") + ";";
 
 				System.out.println(obiCodList);
 			}
 
-			if (movCodMovimento != this.dbConn.getResultSet().getInt("mov_cod_movimento") && !movCodList.contains(this.dbConn.getResultSet().getString("mov_cod_movimento")))
+			if (movCodMovimento != this.connectionManager.getResultSet().getInt("mov_cod_movimento") && !movCodList.contains(this.connectionManager.getResultSet().getString("mov_cod_movimento")))
 			{
 				btpMovimento = new BtpMovimento();
 
-				btpMovimento.setMovCodMovimento(this.dbConn.getResultSet().getInt("mov_cod_movimento"));
-				btpMovimento.setMovNumParcela(this.dbConn.getResultSet().getInt("mov_num_parcela"));
-				btpMovimento.setMovVlrMovimentado(this.dbConn.getResultSet().getBigDecimal("mov_vlr_movimento"));
-				btpMovimento.setMovDatVencimento(this.dbConn.getResultSet().getDate("mov_dat_vencimento"));
-				btpMovimento.setMovDatPagamento(this.dbConn.getResultSet().getDate("mov_dat_pagamento"));
+				btpMovimento.setMovCodMovimento(this.connectionManager.getResultSet().getInt("mov_cod_movimento"));
+				btpMovimento.setMovNumParcela(this.connectionManager.getResultSet().getInt("mov_num_parcela"));
+				btpMovimento.setMovVlrMovimentado(this.connectionManager.getResultSet().getBigDecimal("mov_vlr_movimento"));
+				btpMovimento.setMovDatVencimento(this.connectionManager.getResultSet().getDate("mov_dat_vencimento"));
+				btpMovimento.setMovDatPagamento(this.connectionManager.getResultSet().getDate("mov_dat_pagamento"));
 
-				btpMovimento.getBtpFormaPagamento().setFopCodFormaPagamento(this.dbConn.getResultSet().getInt("fop_cod_forma_pagamento"));
-				btpMovimento.getBtpFormaPagamento().setFopNomFormaPagamento(this.dbConn.getResultSet().getString("fop_nom_forma_pagamento"));
+				btpMovimento.getBtpFormaPagamento().setFopCodFormaPagamento(this.connectionManager.getResultSet().getInt("fop_cod_forma_pagamento"));
+				btpMovimento.getBtpFormaPagamento().setFopNomFormaPagamento(this.connectionManager.getResultSet().getString("fop_nom_forma_pagamento"));
 
-				btpMovimento.getBtpContaOrigem().setConCodConta(this.dbConn.getResultSet().getInt("coo_cod_conta"));
-				btpMovimento.getBtpContaOrigem().setConTxtDescricao(this.dbConn.getResultSet().getString("coo_txt_descricao"));
+				btpMovimento.getBtpContaOrigem().setConCodConta(this.connectionManager.getResultSet().getInt("coo_cod_conta"));
+				btpMovimento.getBtpContaOrigem().setConTxtDescricao(this.connectionManager.getResultSet().getString("coo_txt_descricao"));
 
-				btpMovimento.getBtpContaDestino().setConCodConta(this.dbConn.getResultSet().getInt("cod_cod_conta"));
-				btpMovimento.getBtpContaDestino().setConTxtDescricao(this.dbConn.getResultSet().getString("cod_txt_descricao"));
+				btpMovimento.getBtpContaDestino().setConCodConta(this.connectionManager.getResultSet().getInt("cod_cod_conta"));
+				btpMovimento.getBtpContaDestino().setConTxtDescricao(this.connectionManager.getResultSet().getString("cod_txt_descricao"));
 
 				btpObjetivo.getBtpMovimentoList().add(btpMovimento);
 
-				movCodMovimento = this.dbConn.getResultSet().getInt("mov_cod_movimento");
-				movCodList += this.dbConn.getResultSet().getString("mov_cod_movimento");
+				movCodMovimento = this.connectionManager.getResultSet().getInt("mov_cod_movimento");
+				movCodList += this.connectionManager.getResultSet().getString("mov_cod_movimento");
 			}
 		}
 

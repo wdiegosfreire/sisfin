@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.behavior.SelectablePersistence;
 import br.com.dfdevforge.sisfin.exception.SessionUserNotFoundException;
@@ -14,7 +14,7 @@ public class PrsSelectContaLinhaTempo extends PrsAbstract implements SelectableP
 {
 	public PrsSelectContaLinhaTempo(ConnectionManager conn) throws SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 	}
 
 	public List<BtpConta> execute(BtpConta btpConta, Integer sqlOrder) throws SQLException, SessionUserNotFoundException
@@ -82,21 +82,21 @@ public class PrsSelectContaLinhaTempo extends PrsAbstract implements SelectableP
 		sql.append( cond);
 
 		
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpContaList = new ArrayList<BtpConta>();
 
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			BtpConta btp = new BtpConta();
 
-			btp.setConCodConta(this.dbConn.getResultSet().getInt("con_cod_conta"));
-			btp.setConTxtDescricao(this.dbConn.getResultSet().getString("con_txt_descricao"));
+			btp.setConCodConta(this.connectionManager.getResultSet().getInt("con_cod_conta"));
+			btp.setConTxtDescricao(this.connectionManager.getResultSet().getString("con_txt_descricao"));
 
-			btp.getBtpUsuario().setUsuCodUsuario(this.dbConn.getResultSet().getInt("usu_cod_usuario"));
+			btp.getBtpUsuario().setUsuCodUsuario(this.connectionManager.getResultSet().getInt("usu_cod_usuario"));
 
 			for (int i = 0; i < compList.size(); i++)
-				btp.getMap().put(i + "", (this.dbConn.getResultSet().getString(compList.get(i)) != null ? this.dbConn.getResultSet().getString(compList.get(i)) : "0"));
+				btp.getMap().put(i + "", (this.connectionManager.getResultSet().getString(compList.get(i)) != null ? this.connectionManager.getResultSet().getString(compList.get(i)) : "0"));
 
 			btp.getMap().put("categoria", categoria);
 

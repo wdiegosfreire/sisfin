@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cagece.core.bean.AbstractBean;
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.bean.api.AbstractBean;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpConta;
 import br.com.dfdevforge.sisfin.bean.BtpMovimento;
 import br.com.dfdevforge.sisfin.bean.BtpObjetivo;
@@ -22,7 +22,7 @@ public class PrsObjetivo extends PrsAbstract implements Persistence
 
 	public PrsObjetivo(ConnectionManager dbConn) throws SQLException
 	{ 
-		this.dbConn = dbConn;
+		this.connectionManager = dbConn;
 	}
 
 	public List<BtpObjetivo> select(AbstractBean to, int sqlOrder) throws SQLException
@@ -167,64 +167,64 @@ public class PrsObjetivo extends PrsAbstract implements Persistence
 		sql.append("  est_estabelecimento est on obj.est_cod_estabelecimento = est.est_cod_estabelecimento ");
 		sql.append("where 1 = 1 " + cond + " " + order);
 
-		this.dbConn.statementExecuteQuery(sql.toString());
+		this.connectionManager.statementExecuteQuery(sql.toString());
 
 		btpObjetivoList = new ArrayList<BtpObjetivo>();
 		BtpObjetivo btpObjetivo = null;
-		while (this.dbConn.getResultSet().next())
+		while (this.connectionManager.getResultSet().next())
 		{
 			btpObjetivo = new BtpObjetivo();
 
-			btpObjetivo.setObjCodObjetivo(this.dbConn.getResultSet().getInt("obj_cod_objetivo"));
-			btpObjetivo.setObjTxtDescricao(this.dbConn.getResultSet().getString("obj_txt_descricao"));
+			btpObjetivo.setObjCodObjetivo(this.connectionManager.getResultSet().getInt("obj_cod_objetivo"));
+			btpObjetivo.setObjTxtDescricao(this.connectionManager.getResultSet().getString("obj_txt_descricao"));
 
-			btpObjetivo.getBtpEstabelecimento().setEstCodEstabelecimento(this.dbConn.getResultSet().getInt("est_cod_estabelecimento"));
-			btpObjetivo.getBtpEstabelecimento().setEstNomEstabelecimento(this.dbConn.getResultSet().getString("est_nom_estabelecimento"));
+			btpObjetivo.getBtpEstabelecimento().setEstCodEstabelecimento(this.connectionManager.getResultSet().getInt("est_cod_estabelecimento"));
+			btpObjetivo.getBtpEstabelecimento().setEstNomEstabelecimento(this.connectionManager.getResultSet().getString("est_nom_estabelecimento"));
 
 			btpObjetivoList.add(btpObjetivo);
 
 			BtpMovimento mov = new BtpMovimento();
 
-			mov.setMovCodMovimento(this.dbConn.getResultSet().getInt("mov_cod_movimento"));
-			mov.setMovNumParcela(this.dbConn.getResultSet().getInt("mov_num_parcela"));
-			mov.setMovDatVencimento(this.dbConn.getResultSet().getDate("mov_dat_vencimento"));
-			mov.setMovDatPagamento(this.dbConn.getResultSet().getDate("mov_dat_pagamento"));
-			mov.setMovVlrMovimentado(this.dbConn.getResultSet().getBigDecimal("mov_vlr_movimento"));
+			mov.setMovCodMovimento(this.connectionManager.getResultSet().getInt("mov_cod_movimento"));
+			mov.setMovNumParcela(this.connectionManager.getResultSet().getInt("mov_num_parcela"));
+			mov.setMovDatVencimento(this.connectionManager.getResultSet().getDate("mov_dat_vencimento"));
+			mov.setMovDatPagamento(this.connectionManager.getResultSet().getDate("mov_dat_pagamento"));
+			mov.setMovVlrMovimentado(this.connectionManager.getResultSet().getBigDecimal("mov_vlr_movimento"));
 
-			mov.getBtpFormaPagamento().setFopCodFormaPagamento(this.dbConn.getResultSet().getInt("fop_cod_forma_pagamento"));
-			mov.getBtpFormaPagamento().setFopNomFormaPagamento(this.dbConn.getResultSet().getString("fop_nom_forma_pagamento"));
+			mov.getBtpFormaPagamento().setFopCodFormaPagamento(this.connectionManager.getResultSet().getInt("fop_cod_forma_pagamento"));
+			mov.getBtpFormaPagamento().setFopNomFormaPagamento(this.connectionManager.getResultSet().getString("fop_nom_forma_pagamento"));
 
 			/*
 			 * Recuperando as informações da conta de origem comseu respectivo "pai" e "avô"
 			 */
-			mov.getBtpContaOrigem().setConCodConta(this.dbConn.getResultSet().getInt("coo_cod_conta"));
-			mov.getBtpContaOrigem().setConNumNivel(this.dbConn.getResultSet().getString("coo_num_nivel"));
-			mov.getBtpContaOrigem().setConTxtDescricao(this.dbConn.getResultSet().getString("coo_txt_descricao"));
+			mov.getBtpContaOrigem().setConCodConta(this.connectionManager.getResultSet().getInt("coo_cod_conta"));
+			mov.getBtpContaOrigem().setConNumNivel(this.connectionManager.getResultSet().getString("coo_num_nivel"));
+			mov.getBtpContaOrigem().setConTxtDescricao(this.connectionManager.getResultSet().getString("coo_txt_descricao"));
 			mov.getBtpContaOrigem().setBtpContaPai(new BtpConta());
-			mov.getBtpContaOrigem().getBtpContaPai().setConCodConta(this.dbConn.getResultSet().getInt("coo_cod_conta_pai"));
-			mov.getBtpContaOrigem().getBtpContaPai().setConNumNivel(this.dbConn.getResultSet().getString("coo_num_nivel_pai"));
-			mov.getBtpContaOrigem().getBtpContaPai().setConTxtDescricao(this.dbConn.getResultSet().getString("coo_txt_descricao_pai"));
+			mov.getBtpContaOrigem().getBtpContaPai().setConCodConta(this.connectionManager.getResultSet().getInt("coo_cod_conta_pai"));
+			mov.getBtpContaOrigem().getBtpContaPai().setConNumNivel(this.connectionManager.getResultSet().getString("coo_num_nivel_pai"));
+			mov.getBtpContaOrigem().getBtpContaPai().setConTxtDescricao(this.connectionManager.getResultSet().getString("coo_txt_descricao_pai"));
 			mov.getBtpContaOrigem().getBtpContaPai().setBtpContaPai(new BtpConta());
-			mov.getBtpContaOrigem().getBtpContaPai().getBtpContaPai().setConCodConta(this.dbConn.getResultSet().getInt("coo_cod_conta_avo"));
-			mov.getBtpContaOrigem().getBtpContaPai().getBtpContaPai().setConNumNivel(this.dbConn.getResultSet().getString("coo_num_nivel_avo"));
-			mov.getBtpContaOrigem().getBtpContaPai().getBtpContaPai().setConTxtDescricao(this.dbConn.getResultSet().getString("coo_txt_descricao_avo"));
+			mov.getBtpContaOrigem().getBtpContaPai().getBtpContaPai().setConCodConta(this.connectionManager.getResultSet().getInt("coo_cod_conta_avo"));
+			mov.getBtpContaOrigem().getBtpContaPai().getBtpContaPai().setConNumNivel(this.connectionManager.getResultSet().getString("coo_num_nivel_avo"));
+			mov.getBtpContaOrigem().getBtpContaPai().getBtpContaPai().setConTxtDescricao(this.connectionManager.getResultSet().getString("coo_txt_descricao_avo"));
 
 			/*
 			 * Recuperando as informações da conta de destino comseu respectivo "pai" e "avô"
 			 */
-			mov.getBtpContaDestino().setConCodConta(this.dbConn.getResultSet().getInt("cod_cod_conta"));
-			mov.getBtpContaDestino().setConNumNivel(this.dbConn.getResultSet().getString("cod_num_nivel"));
-			mov.getBtpContaDestino().setConTxtDescricao(this.dbConn.getResultSet().getString("cod_txt_descricao"));
+			mov.getBtpContaDestino().setConCodConta(this.connectionManager.getResultSet().getInt("cod_cod_conta"));
+			mov.getBtpContaDestino().setConNumNivel(this.connectionManager.getResultSet().getString("cod_num_nivel"));
+			mov.getBtpContaDestino().setConTxtDescricao(this.connectionManager.getResultSet().getString("cod_txt_descricao"));
 			mov.getBtpContaDestino().setBtpContaPai(new BtpConta());
-			mov.getBtpContaDestino().getBtpContaPai().setConCodConta(this.dbConn.getResultSet().getInt("cod_cod_conta_pai"));
-			mov.getBtpContaDestino().getBtpContaPai().setConNumNivel(this.dbConn.getResultSet().getString("cod_num_nivel_pai"));
-			mov.getBtpContaDestino().getBtpContaPai().setConTxtDescricao(this.dbConn.getResultSet().getString("cod_txt_descricao_pai"));
+			mov.getBtpContaDestino().getBtpContaPai().setConCodConta(this.connectionManager.getResultSet().getInt("cod_cod_conta_pai"));
+			mov.getBtpContaDestino().getBtpContaPai().setConNumNivel(this.connectionManager.getResultSet().getString("cod_num_nivel_pai"));
+			mov.getBtpContaDestino().getBtpContaPai().setConTxtDescricao(this.connectionManager.getResultSet().getString("cod_txt_descricao_pai"));
 			mov.getBtpContaDestino().getBtpContaPai().setBtpContaPai(new BtpConta());
-			mov.getBtpContaDestino().getBtpContaPai().getBtpContaPai().setConCodConta(this.dbConn.getResultSet().getInt("cod_cod_conta_avo"));
-			mov.getBtpContaDestino().getBtpContaPai().getBtpContaPai().setConNumNivel(this.dbConn.getResultSet().getString("cod_num_nivel_avo"));
-			mov.getBtpContaDestino().getBtpContaPai().getBtpContaPai().setConTxtDescricao(this.dbConn.getResultSet().getString("cod_txt_descricao_avo"));
+			mov.getBtpContaDestino().getBtpContaPai().getBtpContaPai().setConCodConta(this.connectionManager.getResultSet().getInt("cod_cod_conta_avo"));
+			mov.getBtpContaDestino().getBtpContaPai().getBtpContaPai().setConNumNivel(this.connectionManager.getResultSet().getString("cod_num_nivel_avo"));
+			mov.getBtpContaDestino().getBtpContaPai().getBtpContaPai().setConTxtDescricao(this.connectionManager.getResultSet().getString("cod_txt_descricao_avo"));
 
-			mov.getMap().put("auxQtdParcela", this.dbConn.getResultSet().getString("aux_qtd_parcela"));
+			mov.getMap().put("auxQtdParcela", this.connectionManager.getResultSet().getString("aux_qtd_parcela"));
 
 			btpObjetivo.getBtpMovimentoList().add(mov);
 		}
@@ -273,7 +273,7 @@ public class PrsObjetivo extends PrsAbstract implements Persistence
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into obj_objetivo(" + fields + ") values(" + values + ")");
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}
@@ -320,7 +320,7 @@ public class PrsObjetivo extends PrsAbstract implements Persistence
 		sql.append("  obj_cod_objetivo = " + btpObjetivo.getObjCodObjetivo() + " ");
 		sql.append("  and usu_cod_usuario = " + btpObjetivo.getBtpUsuario().getUsuCodUsuario() + " ");
 
-		int updatedRows = this.dbConn.statementExecuteUpdate(sql.toString());
+		int updatedRows = this.connectionManager.statementExecuteUpdate(sql.toString());
 
 		return updatedRows;
 	}

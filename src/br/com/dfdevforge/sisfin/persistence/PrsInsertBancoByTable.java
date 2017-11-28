@@ -3,7 +3,7 @@ package br.com.dfdevforge.sisfin.persistence;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import br.com.cagece.core.persistence.ConnectionManager;
+import br.com.cagece.core.persistence.api.ConnectionManager;
 import br.com.dfdevforge.sisfin.bean.BtpBanco;
 import br.com.dfdevforge.sisfin.behavior.UpdateablePersistence;
 import br.com.dfdevforge.sisfin.exception.NullBeanException;
@@ -15,7 +15,7 @@ public class PrsInsertBancoByTable extends PrsAbstract implements UpdateablePers
 {
 	public PrsInsertBancoByTable(ConnectionManager conn) throws TimezoneValueException, SQLException
 	{
-		this.dbConn = conn;
+		this.connectionManager = conn;
 		isTimezoneCorrect();
 	}
 
@@ -33,14 +33,14 @@ public class PrsInsertBancoByTable extends PrsAbstract implements UpdateablePers
 		sql.append(")");
 		sql.append("values(?, ?) ");
 
-		this.dbConn.preparedStatementSetSqlScript(sql.toString());
+		this.connectionManager.preparedStatementSetSqlScript(sql.toString());
 
 		to.setBanCodBanco(this.getPrimaryKey("ban_banco", "ban_cod_banco"));
 
-		this.dbConn.preparedStatementSetParameter(1, to.getBanCodBanco());
-		this.dbConn.preparedStatementSetParameter(2, to.getBanTxtNome());
+		this.connectionManager.preparedStatementSetParameter(1, to.getBanCodBanco());
+		this.connectionManager.preparedStatementSetParameter(2, to.getBanTxtNome());
 
-		int updatedRows = this.dbConn.preparedStatementExecuteUpdate();
+		int updatedRows = this.connectionManager.preparedStatementExecuteUpdate();
 
 		return updatedRows;
 	}
