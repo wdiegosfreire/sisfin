@@ -18,10 +18,10 @@
 			</logic:present>
 		</td>
 		<td class="width40px center">
-			<span id="divLoading" style="display: none;" class="c-red"><i class="fa fa-spin fa-gear fa-2x"></i></span>
+			<span id="divLoading" style="display: none;" class="c-red"><i class="fa fa-spin fa-cog fa-2x"></i></span>
 		</td>
 		<td class="center">
-			<span style="font-size: 33px;"><bean:message key="label.appName.short"/></span>
+			<span style="font-size: 33px;"><i class="fa fa-usd"></i><bean:message key="label.appName.short"/></span>
 			<span style="font-size: 10px;"><bean:message key="label.application.version"/></span>
 		</td>
 		<td class="width40px center"></td>
