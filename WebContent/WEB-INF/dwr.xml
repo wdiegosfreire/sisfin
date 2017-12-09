@@ -15,11 +15,6 @@
 			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrMovimentoNew" />
 		</create>
 
-		<!-- @Deprecated: deverá ser excluído quando a nova página for desenvolvida -->
-		<create creator="new" javascript="DwrPainelMovimento">
-			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrPainelMovimento" />
-		</create>
-
 		<create creator="new" javascript="DwrMovimento">
 			<param name="class" value="br.com.dfdevforge.sisfin.dwr.DwrMovimento" />
 		</create>

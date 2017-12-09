@@ -21,11 +21,6 @@
 		<put name="table01" value="/modules/movimento/movimento-main.jsp" />
 	</definition>
 
-	<!-- Código não refatorado -->
-	<definition name="site.painelMovimento.actShowMainPage" extends="site.estrutura">
-		<put name="table01" value="/pages/pageContainer/painelMovimento.jsp" />
-	</definition>
-
 	<definition name="site.login.actShowMainPage" extends="site.estrutura">
 		<put name="menu" value="/pages/lrcNull.jsp" />
 		<put name="table01" value="/modules/login/login-main.jsp" />
@@ -69,11 +64,6 @@
 	<definition name="site.usuario.def" extends="site.estrutura">
 		<put name="table01" value="/pages/usuarioFrm.jsp" />
 		<put name="table02" value="/pages/usuarioQry.jsp" />
-	</definition>
-
-	<definition name="site.movimento.def" extends="site.estrutura">
-		<put name="table01" value="/pages/movimentoFrm.jsp" />
-		<put name="table02" value="/pages/movimentoQry.jsp" />
 	</definition>
 
 </tiles-definitions>

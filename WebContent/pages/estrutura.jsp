@@ -91,9 +91,7 @@
 	-->
 
 	<%-- Importando javascript da aplicação --%>
-	<script type="text/javascript" src="javascript/confirmarExclusao.js"></script>
 	<script type="text/javascript" src="javascript/highlight.js"></script>
-	<script type="text/javascript" src="javascript/closePopUp.js"></script>
 </head>
 
 	<body>

@@ -72,17 +72,6 @@
 			<forward name="actShowMainPage" path="site.movimentoNew.actShowMainPage" />
 		</action>
 
-		<!-- Código não refatorado -->
-		<action
-			path="/painelMovimento"
-			type="br.com.dfdevforge.sisfin.action.ActMovimento"
-			name="FrmMovimento"
-			input="/pages/erro.jsp"
-			validate="false">
-
-			<forward name="actShowMainPage" path="site.painelMovimento.actShowMainPage" />
-		</action>
-
 		<action 
 			path="/objetivo" 
 			type="br.com.dfdevforge.sisfin.action.ActObjetivo" 
